@@ -92,6 +92,47 @@ namespace CovidAnalyzer.Models {
             }
         }
 
+        public int getHospitalRegion() {
+            
+            string[] region_1 = { "Guatemala", "Chimaltenango", "Sacatepéquez" };
+            string[] region_2 = { "Quetzaltenango", "Totonicapan", "Huehuetenango", "San Marcos" };
+            string[] region_3 = { "Izabal", "Zacapa", "Chiquimula", "Jalapa", "El Progreso" };
+            string[] region_4 = { "Jutiapa", "Santa Rosa", "Escuintla", "Suchitepéquez", "Retalhuleu" };
+            string[] region_5 = { "Alta Verapaz", "Baja Verapaz", "Petén", "Quiché", "Sololá" };
+            //Hospital 1
+            foreach (var departament in region_1) {
+                if(departament == Departament) {
+                    return 1;
+                }
+            }
+            //Hospital 2
+            foreach (var departament in region_2) {
+                if(departament == Departament) {
+                    return 2;
+                }
+            }
+            //Hospital 3
+            foreach (var departament in region_3) {
+                if (departament == Departament) { 
+                    return 3;
+                }
+            }
+            //Hospital 4
+            foreach (var departament in region_4) {
+                if (departament == Departament){
+                    return 4;
+                }
+            }
+            //Hospital 5
+            foreach (var departament in region_5) {
+                if (departament == Departament) {
+                    return 5;
+                }
+            }
+            //Not found
+            return 0;
+        }
+
 
     }
 }
