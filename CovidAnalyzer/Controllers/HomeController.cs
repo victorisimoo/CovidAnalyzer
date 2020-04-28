@@ -13,5 +13,9 @@ namespace CovidAnalyzer.Controllers
             return View();
         }
 
+        public ActionResult PatientsList()
+        {
+            return View();
+        }
     }
 }
