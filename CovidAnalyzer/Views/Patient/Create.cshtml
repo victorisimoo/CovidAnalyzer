@@ -1,0 +1,98 @@
+﻿@model CovidAnalyzer.Models.Patient
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<br />
+<h2>Create</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <form id="contact-form" method="post" role="form">
+            <div class="controls">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Nombre</label>
+                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El nombre es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Apellido</label>
+                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El apellido es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">DPI</label>
+                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingresa tu DPI" required="required" data-error="El DPI es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="controls">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Edad</label>
+                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingrese su edad" required="required" data-error="La edad es requerida.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Departamento</label>
+                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingrese su departamento" required="required" data-error="El departamento es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Municipalidad</label>
+                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingrese su municipalidad" required="required" data-error="El municipio es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_message">Síntomas</label>
+                        <textarea id="form_message" name="message" class="form-control" placeholder="Síntomas presentados por el paciente" rows="2" required="required"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_message">Descripción</label>
+                        <textarea id="form_message" name="message" class="form-control" placeholder="Descripción del contagio del paciente" rows="2" required="required"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-warning btn-send" style="margin: 10px" value="Crear usuario">
+                        </div>
+                            <button type="button" onclick="location.href='@Url.Action("InitialPage", "Home")'" class="btn btn-light">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+ }
