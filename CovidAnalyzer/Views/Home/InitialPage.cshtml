@@ -7,16 +7,16 @@
         <div class="container py-5">
             <header class="text-center text-dark py-3">
                 <img src="~/Content/Images/doctor-woman.png" class="rounded float-left img-fluid" width="190">
-                <img src="~/Content/Images/doctor-man.png" class="rounded float-right img-fluid" width="320">
+                @*<img src="~/Content/Images/doctor-man.png" class="rounded float-right img-fluid" width="320">*@
                 <h1 class="display-4 font-weight-bold mb-4">Covid Analyzer</h1>
-                <p class="lead mb-0">Cuidamos tu salud</p>
+                <p class="lead mb-0">Gestor del registro de enfermos infectados por la pandemia</p>
             </header>
             <div class="form-inline text-center">
                 <div class="col-md-12">
                     <br /><br /><br /><br />
-                    <button type="button" onclick="location.href='@Url.Action("Create", "Patient")'" class="btn btn-warning btn-send btn-lg">Create user</button>
+                    <button type="button" onclick="location.href='@Url.Action("Create", "Patient")'" class="btn btn-warning btn-send btn-lg">Agregar paciente</button>
                     <p></p>
-                    <input type="submit" class="btn btn-warning btn-send btn-lg" value="   Estadistícas   ">
+                    <button type="button" onclick="location.href='@Url.Action("Create", "Patient")'" class="btn btn-warning btn-send btn-lg">Panel central</button>
                 </div>
             </div>
         </div>

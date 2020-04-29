@@ -1,24 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using CovidAnalyzer.Services;
+using System;
 
 namespace CovidAnalyzer.Models {
     public class Patient {
 
-        //Patient parameters.
+        //Patient parameters
+        static int CodeUser = 0;
+        public int IdPatient { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
-        public int DPI { get; set; }
+        public string DPI { get; set; }
         public int Years { get; set; }
         public string Departament { get; set; }
         public string Municipality { get; set; }
         public string Symptom { get; set; }
         public string Description { get; set; }
+        public DateTime dateHourIngress { get; set;}
 
         //Parameters for defined patient status.
-        bool infected { get; set; }
-        int typePatient { get; set; }
+        public bool infected { get; set; }
+        public int typePatient { get; set; }
+
+        //Method for save patient
+        public bool savePatient(){
+            CodeUser++;
+            this.IdPatient = CodeUser;
+            try {
+                this.dateHourIngress = DateTime.Now;
+                Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
+                Storage.Instance.patientList.Add(this);
+                return true;
+            }catch {
+                return false;
+            }
+        }
+
+        public Patient(int id,string name, string lastname, string dpi){
+            this.IdPatient = id;
+            this.Name = name;
+            this.Lastname = lastname;
+            this.DPI = dpi;
+        }
+
+        public Patient() { }
+
+        //Method for compare elements
+        public static Comparison<Patient> compareByDPI = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.DPI.CompareTo(patient_two.DPI);
+        };
+
+        public static Comparison<Patient> compareByName = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.Name.CompareTo(patient_two.Name);
+        };
+
+        public static Comparison<Patient> compareByLastName = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.Lastname.CompareTo(patient_two.Lastname);
+        };
 
         //Method for return infected probability.
         public bool getProbability(string description){

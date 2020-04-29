@@ -19,21 +19,21 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="form_name">Nombre</label>
-                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El nombre es requerido.">
+                            <input id="form_name" type="text" name="name" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El nombre es requerido.">
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="form_name">Apellido</label>
-                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El apellido es requerido.">
+                            <input id="form_name" type="text" name="lastname" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El apellido es requerido.">
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="form_name">DPI</label>
-                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingresa tu DPI" required="required" data-error="El DPI es requerido.">
+                            <input id="form_name" type="number" name="dpi" class="form-control" placeholder="Por favor, ingresa tu DPI" required="required" data-error="El DPI es requerido.">
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -45,21 +45,46 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="form_name">Edad</label>
-                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingrese su edad" required="required" data-error="La edad es requerida.">
+                            <input id="form_name" type="number" name="years" class="form-control" placeholder="Por favor, ingrese su edad" required="required" data-error="La edad es requerida.">
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="form_name">Departamento</label>
-                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingrese su departamento" required="required" data-error="El departamento es requerido.">
+                            @*<input id="form_name" type="text" name="department" class="form-control" placeholder="Por favor, ingrese su departamento" required="required" data-error="El departamento es requerido.">*@
+                        <select class="form-control" name="department">
+                            <option value="guatemala">Guatemala</option>
+                            <option value="altaverapaz">Alta Verapaz</option>
+                            <option value="bajaverapaz">Baja Verapaz</option>
+                            <option value="chimaltenango">Chimaltenango</option>
+                            <option value="chiquimula">Chiquimula</option>
+                            <option value="peten">Petén</option>
+                            <option value="progreso">El progreso</option>
+                            <option value="quiche">Quiché</option>
+                            <option value="escuintla">Escuintla</option>
+                            <option value="huehuetenango">Huehuetenango</option>
+                            <option value="izabal">Izabal</option>
+                            <option value="jalapa">Jalapa</option>
+                            <option value="jutiapa">Jutiapa</option>
+                            <option value="quetzaltenango">Quetzaltenango</option>
+                            <option value="retalhuleu">Retalhuleu</option>
+                            <option value="sacatepequez">Sacatepéquez</option>
+                            <option value="sanmarcos">San Marcos</option>
+                            <option value="santarosa">Santa Rosa</option>
+                            <option value="solola">Sololá</option>
+                            <option value="suchitepequez">Suchitepequez</option>
+                            <option value="totonicapan">Totonicapán</option>
+                            <option value="zacapa">Zacapa</option>
+                        </select>
+
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="form_name">Municipalidad</label>
-                            <input id="form_name" type="text" name="surname" class="form-control" placeholder="Por favor, ingrese su municipalidad" required="required" data-error="El municipio es requerido.">
+                            <input id="form_name" type="text" name="municipality" class="form-control" placeholder="Por favor, ingrese su municipalidad" required="required" data-error="El municipio es requerido.">
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -70,14 +95,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="form_message">Síntomas</label>
-                        <textarea id="form_message" name="message" class="form-control" placeholder="Síntomas presentados por el paciente" rows="2" required="required"></textarea>
+                        <textarea id="form_message" name="symptom" class="form-control" placeholder="Síntomas presentados por el paciente" rows="2" required="required"></textarea>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="form_message">Descripción</label>
-                        <textarea id="form_message" name="message" class="form-control" placeholder="Descripción del contagio del paciente" rows="2" required="required"></textarea>
+                        <textarea id="form_message" name="description" class="form-control" placeholder="Descripción del contagio del paciente" rows="2" required="required"></textarea>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
