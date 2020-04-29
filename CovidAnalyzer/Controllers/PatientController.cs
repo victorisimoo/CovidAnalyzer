@@ -8,9 +8,9 @@ using CovidAnalyzer.Services;
 
 namespace CovidAnalyzer.Controllers {
     public class PatientController : Controller {
-        public ActionResult PatientsList(FormCollection collection, string search, string selection, string searchString, string dpi, string name, string lastname) {
+        public ActionResult PatientsList(FormCollection collection, string search, string searchString) {
             if (!String.IsNullOrEmpty(search)) {
-                if (!String.IsNullOrEmpty(dpi)) {
+                if (collection["options"] == "dpi") {
                     var searchElementDPI = new Patient {
                         DPI = searchString
                     };
@@ -18,19 +18,19 @@ namespace CovidAnalyzer.Controllers {
                     if (foundDPI != null) {
                         Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.DPI.Contains(foundDPI.DPI));
                     }
-                } else if (!String.IsNullOrEmpty(name)) {
+                } else if (collection["options"] == "name") {
                     var searchElementName = new Patient {
                         Name = searchString
                     };
-                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByLastName);
+                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByName);
                     if (foundLastname != null) {
                         Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Lastname.Contains(foundLastname.Lastname));
                     }
-                } else if (!String.IsNullOrEmpty(lastname)) {
+                } else if (collection["options"] == "lastname") {
                     var searchElementLastname = new Patient {
                         Lastname = searchString
                     };
-                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByName);
+                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByLastName);
                     if (foundName != null) {
                         Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Name.Contains(foundName.Name));
                     }
@@ -39,6 +39,50 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
+        
+
+        public void modal(object sender, EventArgs e, FormCollection collection, string search, string searchString)
+        {
+            if (!String.IsNullOrEmpty(search))
+            {
+                if (collection["options"] == "dpi")
+                {
+                    var searchElementDPI = new Patient
+                    {
+                        DPI = searchString
+                    };
+                    var foundDPI = Storage.Instance.patientTree.searchValue((searchElementDPI), Patient.compareByDPI);
+                    if (foundDPI != null)
+                    {
+                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.DPI.Contains(foundDPI.DPI));
+                    }
+                }
+                else if (collection["options"] == "name")
+                {
+                    var searchElementName = new Patient
+                    {
+                        Name = searchString
+                    };
+                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByName);
+                    if (foundLastname != null)
+                    {
+                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Lastname.Contains(foundLastname.Lastname));
+                    }
+                }
+                else if (collection["options"] == "lastname")
+                {
+                    var searchElementLastname = new Patient
+                    {
+                        Lastname = searchString
+                    };
+                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByLastName);
+                    if (foundName != null)
+                    {
+                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Name.Contains(foundName.Name));
+                    }
+                }
+            }
+        }
 
         // GET: Patient
         public ActionResult Index() {

@@ -18,7 +18,8 @@ namespace CustomGenerics.Structures {
         }
 
         public T searchValue(T searchElement, Comparison<T> comparison) {
-            return search(root, searchElement, comparison);
+            var found = search(root, searchElement, comparison);
+            return found;
         }
 
         public IEnumerator<T> GetEnumerator() {
@@ -44,23 +45,13 @@ namespace CustomGenerics.Structures {
             }
         }
 
-        private T search(Node<T> root, T value, Comparison<T> comparison) {
+        private T search(Node<T> root, T value, Comparison<T> comparison){
             if (root == null) return default(T);
-            if (comparison.Invoke(root.getValue(), value) == 0) {
+            if (comparison.Invoke(root.getValue(), value) == 0){
                 return root.getValue();
-            } else {
-                if (comparison.Invoke(root.getRigthNode().getValue(), value) == 0) {
-                    search(root.getRigthNode(), value, comparison);
-                }
-                else if (comparison.Invoke(root.getRigthNode().getValue(), value) > 0) {
-                    search(root.getLeftNode(), value, comparison);
-                }
-                if (comparison.Invoke(root.getLeftNode().getValue(), value) == 0) {
-                    search(root.getLeftNode(), value, comparison);
-                }
-                else if (comparison.Invoke(root.getLeftNode().getValue(), value) < 0) {
-                    search(root.getRigthNode(), value, comparison);
-                }
+            }else{
+                if (contains(root.getRigthNode(), value, comparison)) { return root.getRigthNode().getValue(); }
+                else if (contains(root.getLeftNode(), value, comparison)) { return root.getLeftNode().getValue(); }
                 return default(T);
             }
         }

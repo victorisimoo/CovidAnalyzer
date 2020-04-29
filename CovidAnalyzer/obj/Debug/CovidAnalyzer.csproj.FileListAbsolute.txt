@@ -80,6 +80,8 @@ C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csp
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csproj.CopyComplete
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.pdb
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CovidAnalyzer.dll.config
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CovidAnalyzer.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CovidAnalyzer.pdb
@@ -130,6 +132,7 @@ C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\roslyn\vbc.rsp
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\roslyn\VBCSCompiler.exe
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\Antlr3.Runtime.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\Newtonsoft.Json.dll
@@ -141,6 +144,7 @@ C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\System.Web.WebPages.
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\System.Web.WebPages.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\System.Web.WebPages.Razor.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\WebGrease.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Helpers.xml
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Mvc.xml
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Optimization.xml
@@ -158,11 +162,7 @@ C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\es\System.Web.Razor.
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\es\System.Web.WebPages.resources.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csprojAssemblyReference.cache
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csproj.CopyComplete
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.pdb
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csprojAssemblyReference.cache
-C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
-C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb
