@@ -21,6 +21,9 @@ namespace CovidAnalyzer.Models {
         public bool infected { get; set; }
         public int typePatient { get; set; }
 
+        //Hospital 
+        public string Hospital { get; set; }
+
         //Method for save patient
         public bool savePatient(){
             CodeUser++;
@@ -129,7 +132,7 @@ namespace CovidAnalyzer.Models {
             }
         }
 
-        public string getHospitalRegion(string userDep) {
+        public void HospitalRegion(string userDep) {
             
             string[] region_1 = { "guatemala", "chimaltenango", "sacatepequez" };
             string[] region_2 = { "quetzaltenango", "totonicapan", "huehuetenango", "san marcos" };
@@ -139,35 +142,33 @@ namespace CovidAnalyzer.Models {
             //Hospital 1
             foreach (var departament in region_1) {
                 if(departament == userDep) {
-                    return "Guatemala";
+                    this.Hospital= "Guatemala";
                 }
             }
             //Hospital 2
             foreach (var departament in region_2) {
                 if(departament == userDep) {
-                    return "Quetzaltenango";
+                    this.Hospital = "Quetzaltenango";
                 }
             }
             //Hospital 3
             foreach (var departament in region_3) {
-                if (departament == userDep) { 
-                    return "Oriente";
+                if (departament == userDep) {
+                    this.Hospital = "Oriente";
                 }
             }
             //Hospital 4
             foreach (var departament in region_4) {
                 if (departament == userDep){
-                    return "Escuintla";
+                    this.Hospital = "Escuintla";
                 }
             }
             //Hospital 5
             foreach (var departament in region_5) {
                 if (departament == userDep) {
-                    return "Petén";
+                    this.Hospital = "Petén";
                 }
             }
-            //Not found
-            return "No se encontró";
         }
 
 
