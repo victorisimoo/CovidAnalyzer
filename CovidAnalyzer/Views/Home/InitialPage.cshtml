@@ -2,12 +2,11 @@
 @{
     ViewBag.Title = "InitialPage";
 }
-
     <div class="page-holder bg-cover">
         <div class="container py-5">
-            <header class="text-center text-dark py-3">
-                <img src="~/Content/Images/doctor-woman.png" class="rounded float-left img-fluid" width="190">
-                @*<img src="~/Content/Images/doctor-man.png" class="rounded float-right img-fluid" width="320">*@
+            <header class="text-center text-dark py-xl-0">
+                @*<img src="~/Content/Images/doctor-woman.png" class="rounded float-left img-fluid" width="190">*@
+                <img src="~/Content/Images/doctor-man.png" class="rounded float-right img-fluid" width="320">
                 <h1 class="display-4 font-weight-bold mb-4">Covid Analyzer</h1>
                 <p class="lead mb-0">Gestor del registro de enfermos infectados por la pandemia</p>
             </header>
@@ -16,7 +15,7 @@
                     <br /><br /><br /><br />
                     <button type="button" onclick="location.href='@Url.Action("Create", "Patient")'" class="btn btn-warning btn-send btn-lg">Agregar paciente</button>
                     <p></p>
-                    <button type="button" onclick="location.href='@Url.Action("Create", "Patient")'" class="btn btn-warning btn-send btn-lg">Panel central</button>
+                    <button type="button" onclick="location.href='@Url.Action("Panel", "Home")'" class="btn btn-warning btn-send btn-lg">Panel central</button>
                 </div>
             </div>
         </div>
