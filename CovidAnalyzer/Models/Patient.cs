@@ -21,6 +21,9 @@ namespace CovidAnalyzer.Models {
         public bool infected { get; set; }
         public int typePatient { get; set; }
 
+        //Hospital 
+        public string Hospital { get; set; }
+
         //Method for save patient
         public bool savePatient(){
             CodeUser++;
@@ -129,45 +132,43 @@ namespace CovidAnalyzer.Models {
             }
         }
 
-        public string getHospitalRegion() {
+        public void HospitalRegion(string userDep) {
             
-            string[] region_1 = { "Guatemala", "Chimaltenango", "Sacatepéquez" };
-            string[] region_2 = { "Quetzaltenango", "Totonicapan", "Huehuetenango", "San Marcos" };
-            string[] region_3 = { "Izabal", "Zacapa", "Chiquimula", "Jalapa", "El Progreso" };
-            string[] region_4 = { "Jutiapa", "Santa Rosa", "Escuintla", "Suchitepéquez", "Retalhuleu" };
-            string[] region_5 = { "Alta Verapaz", "Baja Verapaz", "Petén", "Quiché", "Sololá" };
+            string[] region_1 = { "guatemala", "chimaltenango", "sacatepequez" };
+            string[] region_2 = { "quetzaltenango", "totonicapan", "huehuetenango", "san marcos" };
+            string[] region_3 = { "izabal", "zacapa", "chiquimula", "jalapa", "el progreso" };
+            string[] region_4 = { "jutiapa", "santa rosa", "escuintla", "suchitepequez", "retalhuleu" };
+            string[] region_5 = { "alta verapaz", "baja verapaz", "peten", "quiche", "solola" };
             //Hospital 1
             foreach (var departament in region_1) {
-                if(departament == Departament) {
-                    return "Guatemala";
+                if(departament == userDep) {
+                    this.Hospital= "Guatemala";
                 }
             }
             //Hospital 2
             foreach (var departament in region_2) {
-                if(departament == Departament) {
-                    return "Quetzaltenango";
+                if(departament == userDep) {
+                    this.Hospital = "Quetzaltenango";
                 }
             }
             //Hospital 3
             foreach (var departament in region_3) {
-                if (departament == Departament) { 
-                    return "Oriente";
+                if (departament == userDep) {
+                    this.Hospital = "Oriente";
                 }
             }
             //Hospital 4
             foreach (var departament in region_4) {
-                if (departament == Departament){
-                    return "Escuintla";
+                if (departament == userDep){
+                    this.Hospital = "Escuintla";
                 }
             }
             //Hospital 5
             foreach (var departament in region_5) {
-                if (departament == Departament) {
-                    return "Petén";
+                if (departament == userDep) {
+                    this.Hospital = "Petén";
                 }
             }
-            //Not found
-            return "No se encontró";
         }
 
 

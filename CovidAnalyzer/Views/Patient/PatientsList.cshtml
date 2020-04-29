@@ -1,15 +1,76 @@
-﻿
+﻿@model CovidAnalyzer.Models.Patient
+
 @{
     ViewBag.Title = "PatientsList";
 }
 
 <h1 class="display-4">Patients list</h1>
+@using (Html.BeginForm("PatientsList", "Patient", FormMethod.Post))
+{
 <div>
     <form class="form-inline float-right mx-sm-3 mb-2">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Buscar</button>
+        <select id="inputState" class="form-control">
+            <option value="selection" selected="selected">Elige una opción</option>
+            <option id="dpi" value="dpi">DPI</option>
+            <option id="name" value="name">Nombre</option>
+            <option id="lastname" value="lastname">Apellido</option>
+        </select>
+        }
     </form>
 </div>
+}
+        @using (Html.BeginForm("PatientsList", "Patient", FormMethod.Post))
+        {
+            <input id="form_name" type="text" value="searchString" name="searchString" class="form-control" placeholder="Por favor, ingresé el dato que desea buscar" required="required">
+            <button type="submit" id="search" value="search" name="search" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModalCenter">
+                Buscar
+            </button>
+        }
+        
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Paciente encontrado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-right">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="~/Content/Images/remote-work-woman.png" class="rounded float-md-left" alt="..." width="170">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <strong>Nombre </strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Name</p>
+                                    <strong>Apellido</strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Lastname</p>
+                                    <strong>Descripción </strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Description</p>
+                                    <strong>Edad</strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Years</p>
+                                    <strong>Departamento </strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Departament</p>
+                                    <strong>Municipio</strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Municipality</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <form class="form-inline float-right mx-sm-3 mb-2">
+                        <button type="button" class="btn btn-warning">Recuperado</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 <hr class="my-4">
 <div>
     <table class="table table-sm">

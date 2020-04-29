@@ -17,12 +17,8 @@ namespace CustomGenerics.Structures {
             DeleteValue(deleteElement, comparison);
         }
 
-        public bool searchValue(T searchElement, Comparison<T> comparison) {
-            if (contains(root, searchElement, comparison)) {
-                return true;
-            } else{
-                return true;
-            }
+        public T searchValue(T searchElement, Comparison<T> comparison) {
+            return search(root, searchElement, comparison);
         }
 
         public IEnumerator<T> GetEnumerator() {
@@ -37,16 +33,35 @@ namespace CustomGenerics.Structures {
             size--;
             return value;
         }
-
-
-        private bool contains(Node<T> root, T value, Comparison<T> comparison) {
+        private bool contains(Node<T> root, T value, Comparison<T> comparison){
             if (root == null) return false;
-            if (comparison.Invoke(root.getValue(), value) == 0) {
+            if (comparison.Invoke(root.getValue(), value) == 0){
                 return true;
-            } else {
+            }else{
                 if (contains(root.getRigthNode(), value, comparison)) { return true; }
                 else if (contains(root.getLeftNode(), value, comparison)) { return true; }
                 return false;
+            }
+        }
+
+        private T search(Node<T> root, T value, Comparison<T> comparison) {
+            if (root == null) return default(T);
+            if (comparison.Invoke(root.getValue(), value) == 0) {
+                return root.getValue();
+            } else {
+                if (comparison.Invoke(root.getRigthNode().getValue(), value) == 0) {
+                    search(root.getRigthNode(), value, comparison);
+                }
+                else if (comparison.Invoke(root.getRigthNode().getValue(), value) > 0) {
+                    search(root.getLeftNode(), value, comparison);
+                }
+                if (comparison.Invoke(root.getLeftNode().getValue(), value) == 0) {
+                    search(root.getLeftNode(), value, comparison);
+                }
+                else if (comparison.Invoke(root.getLeftNode().getValue(), value) < 0) {
+                    search(root.getRigthNode(), value, comparison);
+                }
+                return default(T);
             }
         }
 

@@ -164,3 +164,5 @@ C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csprojAssemblyReference.cache
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb

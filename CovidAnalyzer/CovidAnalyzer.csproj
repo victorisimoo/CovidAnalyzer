@@ -141,6 +141,7 @@
     <Content Include="Content\Images\doctor-woman.png" />
     <Content Include="Content\Images\mask-man.png" />
     <Content Include="Content\Images\mask-woman.png" />
+    <Content Include="Content\Images\person.png" />
     <Content Include="Content\Images\remote-work-man.png" />
     <Content Include="Content\Images\remote-work-woman.png" />
     <Content Include="favicon.ico" />
