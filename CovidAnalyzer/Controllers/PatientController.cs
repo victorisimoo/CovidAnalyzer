@@ -6,12 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using CovidAnalyzer.Services;
 
-namespace CovidAnalyzer.Controllers
-{
-    public class PatientController : Controller
-    {
-        public ActionResult PatientsList(FormCollection collection, string search, string selection, string searchString, string dpi, string name, string lastname)
-        {
+namespace CovidAnalyzer.Controllers {
+    public class PatientController : Controller {
+        public ActionResult PatientsList(FormCollection collection, string search, string selection, string searchString, string dpi, string name, string lastname) {
             if (!String.IsNullOrEmpty(search)) {
                 if (!String.IsNullOrEmpty(dpi)) {
                     var searchElementDPI = new Patient {

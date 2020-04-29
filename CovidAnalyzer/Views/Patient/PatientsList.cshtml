@@ -5,19 +5,18 @@
 }
 
 <h1 class="display-4">Patients list</h1>
-@using (Html.BeginForm("PatientsList", "Patient", FormMethod.Post))
-{
-<div>
-    <form class="form-inline float-right mx-sm-3 mb-2">
-        <select id="inputState" class="form-control">
-            <option value="selection" selected="selected">Elige una opción</option>
-            <option id="dpi" value="dpi">DPI</option>
-            <option id="name" value="name">Nombre</option>
-            <option id="lastname" value="lastname">Apellido</option>
-        </select>
-        }
-    </form>
-</div>
+@using (Html.BeginForm("PatientsList", "Patient", FormMethod.Post)) {
+    <div>
+        <form class="form-inline float-right mx-sm-3 mb-2">
+            <select id="inputState" class="form-control">
+                <option value="selection" selected="selected">Elige una opción</option>
+                <option id="dpi" value="dpi">DPI</option>
+                <option id="name" value="name">Nombre</option>
+                <option id="lastname" value="lastname">Apellido</option>
+            </select>
+            }
+        </form>
+    </div>
 }
         @using (Html.BeginForm("PatientsList", "Patient", FormMethod.Post))
         {
