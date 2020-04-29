@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CovidAnalyzer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,38 +25,21 @@ namespace CovidAnalyzer.Controllers
 
         // POST: Patient/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Patient/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Patient/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+        public ActionResult Create(FormCollection collection) {
+            try {
+                var newPatient = new Patient {
+                    Name = collection["name"],
+                    Lastname = collection["lastname"],
+                    DPI = collection["dpi"],
+                    Years = Convert.ToInt16(collection["years"]),
+                    Departament = collection["department"],
+                    Municipality = collection["municipality"],
+                    Symptom = collection["symptom"],
+                    Description = collection["description"]
+                };
+                newPatient.savePatient();
+                return RedirectToAction("InitialPage", "Home");
+            } catch {
                 return View();
             }
         }
