@@ -19,6 +19,7 @@ namespace CovidAnalyzer.Models {
 
         //Parameters for defined patient status.
         public bool infected { get; set; }
+        public bool analyzed { get; set; }
         public int typePatient { get; set; }
 
         //Hospital 
@@ -43,6 +44,7 @@ namespace CovidAnalyzer.Models {
             this.Name = name;
             this.Lastname = lastname;
             this.DPI = dpi;
+            this.analyzed = false;
         }
 
         public Patient() { }
@@ -98,7 +100,7 @@ namespace CovidAnalyzer.Models {
                 this.infected = true;
                 return true;
             }else {
-                this.infected = true;
+                this.infected = false;
                 return false;
             }
         }
@@ -170,7 +172,5 @@ namespace CovidAnalyzer.Models {
                 }
             }
         }
-
-
     }
 }

@@ -8,7 +8,7 @@ using CovidAnalyzer.Services;
 
 namespace CovidAnalyzer.Controllers {
     public class PatientController : Controller {
-        public ActionResult PatientsList(FormCollection collection, string search, string searchString) {
+        public ActionResult PatientsList(FormCollection collection, string search, string searchString, string doTest, string id, string create) {
             if (!String.IsNullOrEmpty(search)) {
                 if (collection["options"] == "dpi") {
                     var searchElementDPI = new Patient {
@@ -36,16 +36,26 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
+
+            if (!String.IsNullOrEmpty(id)) {
+                if(Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed == false) {
+                    bool result = Storage.Instance.patientList.Find(x => x.Name.Contains(id)).getProbability(Storage.Instance.patientList.Find(x => x.Name.Contains(id)).Description);
+                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = result;
+                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(create)) {
+                return RedirectToAction("Create");
+            }
             return View();
         }
 
         
-
-        public void modal(object sender, EventArgs e, FormCollection collection, string search, string searchString)
+        [HttpPost]
+        public void Modal(string type, string searchString)
         {
-            if (!String.IsNullOrEmpty(search))
-            {
-                if (collection["options"] == "dpi")
+                if (type == "dpi")
                 {
                     var searchElementDPI = new Patient
                     {
@@ -57,7 +67,7 @@ namespace CovidAnalyzer.Controllers {
                         Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.DPI.Contains(foundDPI.DPI));
                     }
                 }
-                else if (collection["options"] == "name")
+                else if (type == "name")
                 {
                     var searchElementName = new Patient
                     {
@@ -69,7 +79,7 @@ namespace CovidAnalyzer.Controllers {
                         Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Lastname.Contains(foundLastname.Lastname));
                     }
                 }
-                else if (collection["options"] == "lastname")
+                else if (type == "lastname")
                 {
                     var searchElementLastname = new Patient
                     {
@@ -81,7 +91,6 @@ namespace CovidAnalyzer.Controllers {
                         Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Name.Contains(foundName.Name));
                     }
                 }
-            }
         }
 
         // GET: Patient

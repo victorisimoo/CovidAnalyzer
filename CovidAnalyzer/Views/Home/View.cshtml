@@ -1,0 +1,103 @@
+﻿@model IEnumerable<CovidAnalyzer.Models.Patient>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPatient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DPI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Years)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departament)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Municipality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Symptom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateHourIngress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.infected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.typePatient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hospital)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPatient)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DPI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Years)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departament)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Municipality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Symptom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateHourIngress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.infected)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.typePatient)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hospital)
+        </td>
+        <td>
+            @Html.ActionLink("PatientsList", "Patient", new { id=item.Name })
+        </td>
+    </tr>
+}
+
+</table>
