@@ -6,6 +6,12 @@ using System.Web;
 namespace CovidAnalyzer.Models {
     public class Hospital {
 
+        string name;
+        int region;
+        List<Patient> HospitalizedPatients;
+
+
+
 
     }
 }
