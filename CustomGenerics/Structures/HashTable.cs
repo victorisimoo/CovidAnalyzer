@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomGenerics.Structures {
-    class HashTable <T>{
+    public class HashTable <T>{
         //List container
         private class HashEntry<T> {
 
@@ -28,7 +25,7 @@ namespace CustomGenerics.Structures {
         }
 
         //Class atributes
-        private int[] SIZES = { 50, 100, 300 };
+        private int[] SIZES = { 50 };
         private int sizeIdx = 0;
         private HashEntry<T>[] table;
         private int numEntries, numFilledSlots, numProbes = 0;

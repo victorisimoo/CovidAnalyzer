@@ -7,4 +7,3 @@ C:\Users\vict_\source\repos\CovidAnalyzer\CustomGenerics\bin\Debug\CustomGeneric
 C:\Users\vict_\source\repos\CovidAnalyzer\CustomGenerics\bin\Debug\CustomGenerics.pdb
 C:\Users\vict_\source\repos\CovidAnalyzer\CustomGenerics\obj\Debug\CustomGenerics.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CustomGenerics\obj\Debug\CustomGenerics.pdb
-C:\Users\vict_\source\repos\CovidAnalyzer\CustomGenerics\obj\Debug\CustomGenerics.csprojAssemblyReference.cache

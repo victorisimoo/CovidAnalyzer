@@ -47,20 +47,20 @@
                                 <i class="fa fa-share fa-4x"></i>
                             </div>
                             <h6 class="text-uppercase">Hospitales</h6>
-                            <h1 class="display-4">36</h1>
+                            <h1 class="display-4">@CovidAnalyzer.Services.Storage.Instance.hospitalsActives.Count</h1>
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
             <div class="row placeholders mb-3">
+                    <div class="col-6 col-sm-3 placeholder text-center">
+                        <h4 onclick="location.href='@Url.Action("PatientList", "Patient")'" style="cursor:pointer">Personas</h4>
+                        <span class="text-muted">Personas registradas en el sistema, estado de salud de cada persona</span>
+                    </div>
                 <div class="col-6 col-sm-3 placeholder text-center">
-                    <h4>Personas</h4>
-                    <span class="text-muted">Personas registradas en el sistema</span>
-                </div>
-                <div class="col-6 col-sm-3 placeholder text-center">
-                    <h4>Hospitales</h4>
-                    <span class="text-muted">Estado de hospitales, camas disponibles.</span>
+                    <h4 onclick="location.href='@Url.Action("HospitalList", "Hospital")'" style="cursor:pointer">Hospitales</h4>
+                    <span class="text-muted">Estado de hospitales, camas disponibles, personas por hospital.</span>
                 </div>
                 <div class="col-6 col-sm-3 placeholder text-center">
                     <h4>Actualidad</h4>

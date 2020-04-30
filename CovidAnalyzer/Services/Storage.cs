@@ -1,9 +1,6 @@
 ﻿using CovidAnalyzer.Models;
 using CustomGenerics.Structures;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CovidAnalyzer.Services {
     public class Storage {
@@ -18,9 +15,13 @@ namespace CovidAnalyzer.Services {
         }
 
         public AVLStructure<Patient> patientTree = new AVLStructure<Patient>();
+        public HashTable<Patient> bedsTable = new HashTable<Patient>();
+        public List<Hospital> hospitalsActives = new List<Hospital>();
+
         public List<Patient> patientList = new List<Patient>();
         public List<Patient> patientConfirmed = new List<Patient>();
         public Patient patientReturn = new Patient();
+
 
     }
 }

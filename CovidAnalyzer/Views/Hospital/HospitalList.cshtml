@@ -1,0 +1,61 @@
+﻿@model CovidAnalyzer.Models.Hospital
+
+@{
+    ViewBag.Title = "HospitalList";
+}
+<br />
+<h2>Hospitales</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <div class="controls">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-inline">
+                        <input type="text" name="name" class="form-control" placeholder="Nombre del hospital" required="required" date-error="Ingrese un nombre" />
+                        <input type="submit" class="btn btn-warning btn-send" style="margin: 10px" value="Buscar">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <table class="table table-sm" style="position: relative; top: 30px; left:0px">
+                <thead>
+                    <tr class="bg-warning">
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Region</th>
+                        <th scope="col" class="text-center">Dirección</th>
+                        <th scope="col" class="text-center">Infectados</th>
+                        <th scope="col" class="text-center">Recuperados</th>
+                        <th scope="col" class="text-center">Por atender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives) {
+                        <tr>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.nameHostpial)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.regionHospital)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.address)</td>
+                            <td class="text-center">32</td>
+                            <td class="text-center">23</td>
+                            <td class="text-center">55</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+<br />
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-inline">
+            <button type="button" onclick="location.href='@Url.Action("Panel", "Home")'" class="btn btn-warning">Regresar</button>
+        </div>
+    </div>
+</div>
