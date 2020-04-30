@@ -8,21 +8,21 @@
 {
     @Html.AntiForgeryToken()
     <br />
-    <h1 class="display-4">Pacientes registrados</h1>
+    <h1>Pacientes registrados</h1>
+    <hr />
     <div class="controls">
         <div class="form-inline float-right">
-            <div class="form-group mr-sm-3 col-sm-3">
+            <div class="form-group" style="position: relative; top: 0px; left: 10px;">
                 <select class="form-control" name="options">
                     <option value="dpi">DPI</option>
                     <option value="name">Nombre</option>
                     <option value="lastname">Apellido</option>
                 </select>
-                <div class="help-block with-errors"></div>
             </div>
-            <input class="form-control mr-sm-2 my-2 col-md-3" type="search" placeholder="Buscar" value="searchString" aria-label="Search">
+            <input class="form-control" style="position: relative; top: 0px; left: 10px;" type="search" placeholder="Buscar" value="searchString" aria-label="Search">
 
             <!-- Button trigger modal -->
-            <button type="button" onsubmit="desabilita()" id="search" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">Buscar</button>
+            <input type="button" id="searchButton" href="#" style="position: relative; top: 0px; left: 10px;" onclick="javascript: update();" value="searchButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -37,11 +37,9 @@
                         <div class="modal-body">
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row no-gutters">
-                                    <div class="col-md-4">
-                                        <img src="~/Content/Images/remote-work-woman.png" class="rounded float-md-left align-content-center" alt="..." width="150">
-                                    </div>
+                                    <div class="col-md-4"><img src="~/Content/Images/remote-work-woman.png" class="rounded float-md-left align-content-center" alt="..." width="150"></div>
                                     <div class="col-md-8">
-                                        <div class="card-body">
+                                        <div class="card-body" id="divGet">
                                             <strong>Nombre </strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Name</p>
                                             <strong>Apellido</strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Lastname</p>
                                             <strong>Descripción</strong><p class="font-weight-light">@CovidAnalyzer.Services.Storage.Instance.patientReturn.Description</p>
@@ -61,44 +59,98 @@
             </div>
         </div>
     </div>
+    <button class="btn btn-outline-warning" style="position: relative; top: 0px; left: 0px;" type="button" onclick="location.href='@Url.Action("Create", "Patient")'">Ingresar nuevo paciente</button>
+    <button type="button" id="searchButton" style="position: relative; top: 0px; left: 0px;" value="menu" class="btn btn-warning">Volver al menú</button>
+
+    <div>
+        <table class="table table-sm" style="position: relative; top: 30px; left: 0px;">
+            <thead>
+                <tr class="bg-warning">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Departamento</th>
+                    <th scope="col">Municipio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in CovidAnalyzer.Services.Storage.Instance.patientList)
+                {
+                    if (item.analyzed == false)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Years)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Departament)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
+                            <td>@Html.ActionLink("PatientsList", "PatientsList", new { id = item.Name })</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        if (item.infected == false)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" style="position: relative; top: 20px; left: 0px;" role="alert">
+                                <strong>No contagiada</strong> La persona no está contagiada de COVID-19
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Years)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Departament)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
+                                <td>No contagiado</td>
+                            </tr>
+                        }
+                        else if (item.infected == true)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" style="position: relative; top: 20px; left: 0px;" role="alert">
+                                <strong>Contagiada</strong> La persona está contagiada de COVID-19
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Years)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Departament)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
+                                <td>Contagiado</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
+<script language="javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
 
 
 
-
-<div>
-    <table class="table table-sm">
-        <thead>
-            <tr class="bg-warning">
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Edad</th>
-                <th scope="col">Departamento</th>
-                <th scope="col">Municipio</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Otto</td>
-            </tr>
-            <tr>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Otto</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<button type="button" class="btn btn-warning">Volver al menú</button>
-
-
-
-
+@section scripts{
+    <script language="javascript">
+        $(function update() {
+            $("#searchButton").click(function () {
+                var url = "@Url.Action("Modal", "Patient")";
+                var type = $("#options").val();
+                var search = $("#searchString").val();
+                var data = {
+                    collection: type,
+                    searchString = search
+                };
+                $post(url, data).done(function (data) {
+                    $("#divGet").append(data);
+                });
+            });
+        });
+    </script>
+}

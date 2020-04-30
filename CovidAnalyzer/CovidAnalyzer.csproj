@@ -187,6 +187,7 @@
     <Content Include="Views\Patient\Create.cshtml" />
     <Content Include="Views\Patient\PatientsList.cshtml" />
     <Content Include="Views\Home\Panel.cshtml" />
+    <Content Include="Views\Home\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

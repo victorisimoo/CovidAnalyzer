@@ -19,6 +19,7 @@ namespace CovidAnalyzer.Services {
 
         public AVLStructure<Patient> patientTree = new AVLStructure<Patient>();
         public List<Patient> patientList = new List<Patient>();
+        public List<Patient> patientConfirmed = new List<Patient>();
         public Patient patientReturn = new Patient();
 
     }
