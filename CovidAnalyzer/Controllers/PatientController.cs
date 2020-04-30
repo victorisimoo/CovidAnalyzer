@@ -92,6 +92,10 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
+        public ActionResult PatientList() {
+            return View("PatientsList");
+        }
+
         public ActionResult Create(){
             return View("Create");
         }
