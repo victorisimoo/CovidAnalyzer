@@ -1,4 +1,5 @@
 ﻿using CovidAnalyzer.Services;
+using System.Linq;
 using System;
 
 namespace CovidAnalyzer.Models {
@@ -33,6 +34,7 @@ namespace CovidAnalyzer.Models {
                 this.dateHourIngress = DateTime.Now;
                 Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
                 Storage.Instance.patientList.Add(this);
+                this.infected = getProbability(this.Description);
                 return true;
             }catch {
                 return false;

@@ -8,39 +8,72 @@ using CovidAnalyzer.Services;
 
 namespace CovidAnalyzer.Controllers {
     public class PatientController : Controller {
-        public ActionResult PatientsList(FormCollection collection, string search, string searchString, string doTest, string id, string create) {
-            if (!String.IsNullOrEmpty(search)) {
+        public ActionResult PatientsList(FormCollection collection, string searchButton, string searchString, string id, string create) {
+            if (!String.IsNullOrEmpty(searchButton)) {
+                //If the option selected was DPI
                 if (collection["options"] == "dpi") {
                     var searchElementDPI = new Patient {
                         DPI = searchString
                     };
                     var foundDPI = Storage.Instance.patientTree.searchValue((searchElementDPI), Patient.compareByDPI);
-                    if (foundDPI != null) {
-                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.DPI.Contains(foundDPI.DPI));
+                    int count = foundDPI.Count();
+                    if (foundDPI != null && count != 0) {
+                        foreach (var item in foundDPI) {
+                            Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
+                        }
+                        return View(Storage.Instance.patientReturn);
                     }
-                } else if (collection["options"] == "name") {
-                    var searchElementName = new Patient {
-                        Name = searchString
-                    };
-                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByName);
-                    if (foundLastname != null) {
-                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Lastname.Contains(foundLastname.Lastname));
-                    }
+                //If the option selected was Lastname
                 } else if (collection["options"] == "lastname") {
-                    var searchElementLastname = new Patient {
+                    var searchElementName = new Patient {
                         Lastname = searchString
                     };
-                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByLastName);
+                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByLastName);
+                    if (foundLastname != null) {
+                        foreach (var item in foundLastname) {
+                            Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
+                        }
+                        return View(Storage.Instance.patientReturn);
+                    }
+                    //If the option selected was Name
+                } else if (collection["options"] == "name") {
+                    var searchElementLastname = new Patient {
+                        Name = searchString
+                    };
+                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByName);
                     if (foundName != null) {
-                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Name.Contains(foundName.Name));
+                        foreach (var item in foundName){
+                            Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
+                        }
+                        return View(Storage.Instance.patientReturn);
+                    }
+                }
+                else {
+                    Storage.Instance.patientReturn.Clear();
+                    return View(Storage.Instance.patientList);
+                }
+                
+            }
+
+            foreach (var item in Storage.Instance.patientList)
+            {
+                if(item.analyzed == false)
+                {
+                    if (item.infected) {
+                        Storage.Instance.patientConfirmed.Add(item);
                     }
                 }
             }
 
             if (!String.IsNullOrEmpty(id)) {
-                if(Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed == false) {
-                    bool result = Storage.Instance.patientList.Find(x => x.Name.Contains(id)).getProbability(Storage.Instance.patientList.Find(x => x.Name.Contains(id)).Description);
-                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = result;
+                Random randomCovid = new Random();
+                int posOrNeg = randomCovid.Next(1, 10);
+                if(posOrNeg >= 5) {
+                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
+                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                }
+                else {
+                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = false;
                     Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
                 }
             }
@@ -48,50 +81,11 @@ namespace CovidAnalyzer.Controllers {
             if (!String.IsNullOrEmpty(create)) {
                 return RedirectToAction("Create");
             }
-            return View();
+            Storage.Instance.patientReturn.Clear();
+
+            return View(Storage.Instance.patientList);
         }
 
-        
-        [HttpPost]
-        public void Modal(string type, string searchString)
-        {
-                if (type == "dpi")
-                {
-                    var searchElementDPI = new Patient
-                    {
-                        DPI = searchString
-                    };
-                    var foundDPI = Storage.Instance.patientTree.searchValue((searchElementDPI), Patient.compareByDPI);
-                    if (foundDPI != null)
-                    {
-                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.DPI.Contains(foundDPI.DPI));
-                    }
-                }
-                else if (type == "name")
-                {
-                    var searchElementName = new Patient
-                    {
-                        Name = searchString
-                    };
-                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByName);
-                    if (foundLastname != null)
-                    {
-                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Lastname.Contains(foundLastname.Lastname));
-                    }
-                }
-                else if (type == "lastname")
-                {
-                    var searchElementLastname = new Patient
-                    {
-                        Lastname = searchString
-                    };
-                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByLastName);
-                    if (foundName != null)
-                    {
-                        Storage.Instance.patientReturn = Storage.Instance.patientList.Find(x => x.Name.Contains(foundName.Name));
-                    }
-                }
-        }
 
         // GET: Patient
         public ActionResult Index() {
