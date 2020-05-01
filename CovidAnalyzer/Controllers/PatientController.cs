@@ -68,13 +68,17 @@ namespace CovidAnalyzer.Controllers {
             if (!String.IsNullOrEmpty(id)) {
                 Random randomCovid = new Random();
                 int posOrNeg = randomCovid.Next(1, 10);
-                if(posOrNeg >= 5) {
-                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
-                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
-                }
-                else {
-                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = false;
-                    Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                if (!Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed) {
+                    if (posOrNeg >= 5)
+                    {
+                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
+                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                    }
+                    else
+                    {
+                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = false;
+                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                    }
                 }
             }
 
