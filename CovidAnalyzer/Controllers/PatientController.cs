@@ -9,6 +9,9 @@ using CovidAnalyzer.Services;
 namespace CovidAnalyzer.Controllers {
     public class PatientController : Controller {
         public ActionResult PatientsList(FormCollection collection, string searchButton, string searchString, string id, string create) {
+           
+            Storage.Instance.patientReturn.Clear();
+
             if (!String.IsNullOrEmpty(searchButton)) {
                 //If the option selected was DPI
                 if (collection["options"] == "dpi") {
@@ -29,7 +32,8 @@ namespace CovidAnalyzer.Controllers {
                         Lastname = searchString
                     };
                     var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByLastName);
-                    if (foundLastname != null) {
+                    int count = foundLastname.Count();
+                    if (foundLastname != null && count != 0) {
                         foreach (var item in foundLastname) {
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
@@ -41,7 +45,8 @@ namespace CovidAnalyzer.Controllers {
                         Name = searchString
                     };
                     var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByName);
-                    if (foundName != null) {
+                    int count = foundName.Count();
+                    if (foundName != null && count != 0) {
                         foreach (var item in foundName){
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
@@ -68,7 +73,7 @@ namespace CovidAnalyzer.Controllers {
             if (!String.IsNullOrEmpty(id)) {
                 Random randomCovid = new Random();
                 int posOrNeg = randomCovid.Next(1, 10);
-                if (!Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed) {
+                if (Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed==false) {
                     if (posOrNeg >= 5)
                     {
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
@@ -97,7 +102,7 @@ namespace CovidAnalyzer.Controllers {
         }
 
         public ActionResult PatientList() {
-            return View("PatientsList");
+            return View("PatientsList", Storage.Instance.patientList);
         }
 
         public ActionResult Create(){

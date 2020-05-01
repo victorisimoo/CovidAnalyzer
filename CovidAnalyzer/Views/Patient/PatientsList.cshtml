@@ -11,7 +11,7 @@
     <h1>Pacientes registrados</h1>
     <hr />
     <div class="controls">
-        <div class="form-inline float-right">
+        <div class="form-inline float-left">
             <div class="form-group" style="position: relative; top: 0px; left: 10px;">
                 <select class="form-control" name="options">
                     <option value="dpi">DPI</option>
@@ -19,142 +19,67 @@
                     <option value="lastname">Apellido</option>
                 </select>
             </div>
-            <input class="form-control" style="position: relative; top: 0px; left: 10px;" type="search" name="searchString" placeholder="Buscar" value="searchString" aria-label="Search">
-            <input type="submit" style="position: relative; top: 0px; left: 10px;" class="btn btn-warning btn-send" name="searchButton" value="Buscar paciente">
-            
-            <!-- Button trigger modal -->
-            @*<input type="button" id="searchButton" href="#" style="position: relative; top: 0px; left: 10px;" value="searchButton" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">*@
-
-            <!-- Modal -->
-            @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header badge-warning">
-                            <h5 class="modal-title" id="exampleModalLabel">Información del paciente</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row no-gutters">
-                                    <div class="col-md-4"><img src="~/Content/Images/remote-work-woman.png" class="rounded float-md-left align-content-center" alt="..." width="150"></div>
-                                    <div class="col-md-8">
-                                        <div class="card-body" id="divGet">
-                                            @foreach (var item in CovidAnalyzer.Services.Storage.Instance.patientReturn)
-                                            {
-                                                <strong>Nombre </strong><p class="font-weight-light">@Html.DisplayFor(modelItem => item.Name)</p>
-                                                <strong>Apellido</strong><p class="font-weight-light">@Html.DisplayFor(modelItem => item.Name)</p>
-                                                <strong>Descripción</strong><p class="font-weight-light">@Html.DisplayFor(modelItem => item.Name)</p>
-                                                <strong>Edad</strong><p class="font-weight-light">@Html.DisplayFor(modelItem => item.Name)</p>
-                                                <strong>Departamento</strong><p class="font-weight-light">@Html.DisplayFor(modelItem => item.Name)</p>
-                                                <strong>Municipio</strong><p class="font-weight-light">@Html.DisplayFor(modelItem => item.Name)</p>
-                                            }
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning">Recuperado</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+            <input class="form-control" style="position: relative; top: 0px; margin-left:5px; left: 10px;" type="search" name="searchString" placeholder="Buscar" aria-label="Search">
+            <input type="submit" style="position: relative; top: 0px; margin-left:5px; left: 10px;" class="btn btn-warning btn-send" name="searchButton" value="Buscar">
         </div>
     </div>
-    <button class="btn btn-outline-warning" style="position: relative; top: 0px; left: 0px;" type="button" onclick="location.href='@Url.Action("Create", "Patient")'">Ingresar nuevo paciente</button>
-    <button type="button" id="searchButton" style="position: relative; top: 0px; left: 0px;" value="menu" class="btn btn-warning" onclick="location.href='@Url.Action("InitialPage", "Home")'">Volver al menú</button>
+
 
     <div>
         <table class="table table-sm" style="position: relative; top: 30px; left: 0px;">
             <thead>
                 <tr class="bg-warning">
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Edad</th>
-                    <th scope="col">Departamento</th>
-                    <th scope="col">Municipio</th>
+                    <th scope="col" class="text-center">Nombre</th>
+                    <th scope="col" class="text-center">Apellido</th>
+                    <th scope="col" class="text-center">Edad</th>
+                    <th scope="col" class="text-center">Departamento</th>
+                    <th scope="col" class="text-center">Municipio</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-
-                @foreach (var item in Model) {
+                @foreach (var item in Model)
+                {
                     if (item.analyzed == true) {
-                        if (item.infected == false) {
-                            if (true) {
-                                <div class="alert alert-success alert-dismissible fade show" style="position: relative; top: 20px; left: 0px;" role="alert">
-                                    <strong>No contagiada</strong> La persona no está contagiada de COVID-19
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+                        <tr>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Lastname)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
+                            @if (item.infected == false) {
+                                <td class="text-center">No contagiado</td>
                             }
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Years)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Departament)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
-                                <td>No contagiado</td>
-                            </tr>
-                        }
-                        else
-                        {
-                            if (true)
+                            else {
+                                <td class="text-center">Contagiado</td>
+                            }
+                        </tr>
+                    } else {
+                        <tr>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Lastname)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
+                            <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
+                            @if (item.infected == false)
                             {
-                                <div class="alert alert-danger alert-dismissible fade show" style="position: relative; top: 20px; left: 0px;" role="alert">
-                                    <strong>Contagiada</strong> La persona está contagiada de COVID-19
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            }
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Years)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Departament)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
-                                <td>Contagiado</td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        if (item.infected == false)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Years)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Departament)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
                                 <td>@Html.ActionLink("Realizar Prueba", "PatientsList", new { id = item.Name })</td>
-                            </tr>
-                        }
-                        else if (item.infected == true)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Years)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Departament)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Municipality)</td>
-                                <td>Contagiado</td>
-                            </tr>
-                        }
+                            }
+                            else {
+                                <td class="text-center">Contagiado</td>
+                            }
+                        </tr>
                     }
-
                 }
-
-
             </tbody>
         </table>
+
     </div>
+    <hr style="position: relative; top: 20px; left: 0px;" />
+    <button class="btn btn-warning" style="position: relative; top: 20px; left: 0px;" type="button" onclick="location.href='@Url.Action("Create", "Patient")'">Agregar paciente</button>
+    <button type="button" id="searchButton" style="        position: relative;
+        top: 20px;
+        left: 0px;
+" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("InitialPage", "Home")'">Volver</button>
 }
 
