@@ -32,9 +32,9 @@ namespace CovidAnalyzer.Models {
             this.IdPatient = CodeUser;
             try {
                 this.dateHourIngress = DateTime.Now;
+                this.infected = getProbability(this.Description);
                 Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
                 Storage.Instance.patientList.Add(this);
-                this.infected = getProbability(this.Description);
                 return true;
             }catch {
                 return false;
