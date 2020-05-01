@@ -1,9 +1,5 @@
 ﻿using CovidAnalyzer.Services;
 using CustomGenerics.Structures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CovidAnalyzer.Models {
     public class Hospital {
@@ -32,12 +28,19 @@ namespace CovidAnalyzer.Models {
         }
 
         public bool addPatientHold(Patient newPatient){
+            bool response = false;
             try {
                 //patientsHold.AddNode(newPatient, );
-                return true;
+                if ((beadsAvailable <= 10)){
+                    Storage.Instance.bedsTable.insert(newPatient.DPI, newPatient);
+                    response = true;
+                }else{
+                    response = false;
+                }
             }catch {
-                return false;
+                response = false;
             }
+            return response;
         }
 
         public bool addPatientCared(Patient newPatient){
@@ -48,15 +51,5 @@ namespace CovidAnalyzer.Models {
                 return false;
             }
         }
-
-
-
-
-
-
-
-
-
-
     }
 }

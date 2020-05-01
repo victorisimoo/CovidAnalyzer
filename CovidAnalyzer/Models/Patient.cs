@@ -32,9 +32,9 @@ namespace CovidAnalyzer.Models {
             this.IdPatient = CodeUser;
             try {
                 this.dateHourIngress = DateTime.Now;
+                this.infected = getProbability(this.Description);
                 Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
                 Storage.Instance.patientList.Add(this);
-                this.infected = getProbability(this.Description);
                 return true;
             }catch {
                 return false;
@@ -67,7 +67,6 @@ namespace CovidAnalyzer.Models {
         //Method for return infected probability.
         public bool getProbability(string description){
             int probability = 5;
-            //Modificar linea
             description = description.ToLower();
             string[] descriptionAnalicer = description.Split(' ');
             string[] travel = { "europa", "viaje", "china", "italia", "avión" };
@@ -170,7 +169,7 @@ namespace CovidAnalyzer.Models {
             //Hospital 5
             foreach (var departament in region_5) {
                 if (departament == userDep) {
-                    this.Hospital = "Petén";
+                    this.Hospital = "Peten";
                 }
             }
         }
