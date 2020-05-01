@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using CovidAnalyzer.Services;
+using CovidAnalyzer.Models;
 
 namespace CovidAnalyzer.Controllers {
     public class HospitalController : Controller {
@@ -7,7 +9,11 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
-        public ActionResult HospitalList() {
+        public ActionResult HospitalList(string idHospital) {
+            if (!string.IsNullOrEmpty(idHospital)) {
+                TempData["Hospital"] = idHospital;
+                ViewBag.Hospital = TempData["Hospital"].ToString();
+            }
             return View("HospitalList");
         }
 

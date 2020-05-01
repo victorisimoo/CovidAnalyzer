@@ -8,6 +8,22 @@
 {
     @Html.AntiForgeryToken()
     <br />
+    if (ViewBag.smsPositive != null) {
+        <div class="alert alert-danger alert-dismissible fade show col-5" style="position: absolute; top: 50px; left: 700px;" role="alert">
+            <strong>Paciente contagiado</strong> @ViewBag.smsPositive
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    if (ViewBag.smsNegative != null) {
+        <div class="alert alert-success alert-dismissible fade show col-5" style="position: absolute; top: 50px; left: 700px;" role="alert">
+            <strong>Paciente no contagiado</strong> @ViewBag.smsNegative
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
     <h1>Pacientes registrados</h1>
     <hr />
     <div class="controls">
@@ -23,8 +39,6 @@
             <input type="submit" style="position: relative; top: 0px; margin-left:5px; left: 10px;" class="btn btn-warning btn-send" name="searchButton" value="Buscar">
         </div>
     </div>
-
-
     <div>
         <table class="table table-sm" style="position: relative; top: 30px; left: 0px;">
             <thead>
@@ -38,8 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
+                @foreach (var item in Model) {
                     if (item.analyzed == true) {
                         <tr>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
@@ -61,11 +74,9 @@
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
-                            @if (item.infected == false)
-                            {
+                            @if (item.infected == false) {
                                 <td>@Html.ActionLink("Realizar Prueba", "PatientsList", new { id = item.Name })</td>
-                            }
-                            else {
+                            } else {
                                 <td class="text-center">Contagiado</td>
                             }
                         </tr>
@@ -73,13 +84,14 @@
                 }
             </tbody>
         </table>
-
     </div>
     <hr style="position: relative; top: 20px; left: 0px;" />
     <button class="btn btn-warning" style="position: relative; top: 20px; left: 0px;" type="button" onclick="location.href='@Url.Action("Create", "Patient")'">Agregar paciente</button>
     <button type="button" id="searchButton" style="        position: relative;
         top: 20px;
         left: 0px;
-" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("InitialPage", "Home")'">Volver</button>
+" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("InitialPage", "Home")'">
+        Volver
+    </button>
 }
 

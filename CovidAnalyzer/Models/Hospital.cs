@@ -30,7 +30,6 @@ namespace CovidAnalyzer.Models {
         public bool addPatientHold(Patient newPatient){
             bool response = false;
             try {
-
                 patientsHold.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
                 if ((beadsAvailable <= 10)){
                     Storage.Instance.bedsTable.insert(newPatient.DPI, newPatient);
