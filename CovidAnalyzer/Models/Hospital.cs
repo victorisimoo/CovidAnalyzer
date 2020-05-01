@@ -30,8 +30,8 @@ namespace CovidAnalyzer.Models {
         public bool addPatientHold(Patient newPatient){
             bool response = false;
             try {
-                
-                //patientsHold.AddNode(newPatient, );
+
+                patientsHold.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
                 if ((beadsAvailable <= 10)){
                     Storage.Instance.bedsTable.insert(newPatient.DPI, newPatient);
                     response = true;
@@ -46,7 +46,7 @@ namespace CovidAnalyzer.Models {
 
         public bool addPatientCared(Patient newPatient){
             try {
-                //patientsHold.AddNode(newPatient, );
+                patientsCared.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
                 return true;
             } catch {
                 return false;
