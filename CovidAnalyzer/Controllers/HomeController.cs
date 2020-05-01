@@ -12,6 +12,10 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
+        public ActionResult Virus() {
+            return View("Virus");
+        }
+
         public ActionResult Panel(){
             return View("Panel");
         }

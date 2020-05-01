@@ -13,8 +13,8 @@
                             <div class="rotate">
                                 <i class="fa fa-user fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Ingresados</h6>
-                            <h1 class="display-4">134</h1>
+                            <h6 class="text-uppercase">Registrados</h6>
+                            <h1 class="display-4">@CovidAnalyzer.Services.Storage.Instance.patientList.Count</h1>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                             <div class="rotate">
                                 <i class="fa fa-twitter fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Descartados</h6>
+                            <h6 class="text-uppercase">Recuperados</h6>
                             <h1 class="display-4">125</h1>
                         </div>
                     </div>
@@ -54,21 +54,21 @@
             </div>
             <hr>
             <div class="row placeholders mb-3">
-                    <div class="col-6 col-sm-3 placeholder text-center">
-                        <h4 onclick="location.href='@Url.Action("PatientList", "Patient")'" style="cursor:pointer">Personas</h4>
-                        <span class="text-muted">Personas registradas en el sistema, estado de salud de cada persona</span>
-                    </div>
+                <div class="col-6 col-sm-3 placeholder text-center">
+                    <h4 onclick="location.href='@Url.Action("PatientsList", "Patient")'" style="cursor:pointer">Personas</h4>
+                    <span class="text-muted">Personas registradas en el sistema, estado de salud de cada persona</span>
+                </div>
                 <div class="col-6 col-sm-3 placeholder text-center">
                     <h4 onclick="location.href='@Url.Action("HospitalList", "Hospital")'" style="cursor:pointer">Hospitales</h4>
                     <span class="text-muted">Estado de hospitales, camas disponibles, personas por hospital.</span>
                 </div>
                 <div class="col-6 col-sm-3 placeholder text-center">
-                    <h4>Actualidad</h4>
-                    <span class="text-muted">Estadísticas del desarrollo de la enfermedad.</span>
+                    <h4 onclick="location.href='@Url.Action("Virus", "Home")'" style="cursor:pointer">Virus</h4>
+                    <span class="text-muted">Información de la OMS acerca del virus (COVID-19).</span>
                 </div>
                 <div class="col-6 col-sm-3 placeholder text-center">
-                    <h4>Virus</h4>
-                    <span class="text-muted">Información acerca del virus (COVID-19).</span>
+                    <h4>Actualidad</h4>
+                    <span class="text-muted">Estadísticas del desarrollo de la enfermedad.</span>
                 </div>
             </div>
 

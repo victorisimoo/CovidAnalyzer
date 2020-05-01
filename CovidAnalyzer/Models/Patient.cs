@@ -71,7 +71,6 @@ namespace CovidAnalyzer.Models {
         //Method for return infected probability.
         public bool getProbability(string description){
             int probability = 5;
-            //Modificar linea
             description = description.ToLower();
             string[] descriptionAnalicer = description.Split(' ');
             string[] travel = { "europa", "viaje", "china", "italia", "avión" };
@@ -174,7 +173,7 @@ namespace CovidAnalyzer.Models {
             //Hospital 5
             foreach (var departament in region_5) {
                 if (departament == userDep) {
-                    this.Hospital = "Petén";
+                    this.Hospital = "Peten";
                 }
             }
         }

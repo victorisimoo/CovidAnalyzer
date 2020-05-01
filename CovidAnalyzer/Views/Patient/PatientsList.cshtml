@@ -38,7 +38,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach (var item in Model)
                 {
                     if (item.analyzed == true) {
@@ -48,12 +47,10 @@
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
-                            @if (item.infected == false)
-                            {
+                            @if (item.infected == false) {
                                 <td class="text-center">No contagiado</td>
                             }
-                            else
-                            {
+                            else {
                                 <td class="text-center">Contagiado</td>
                             }
                         </tr>
