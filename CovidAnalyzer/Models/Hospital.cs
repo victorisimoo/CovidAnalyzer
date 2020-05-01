@@ -27,12 +27,13 @@ namespace CovidAnalyzer.Models {
             }
         }
 
-        public bool addPatientHold(Patient newPatient){
+        public bool addPatientHold(Patient newPatient) {
+            this.beadsAvailable++;
             bool response = false;
             try {
-                patientsHold.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
                 if ((beadsAvailable <= 10)){
                     Storage.Instance.bedsTable.insert(newPatient.DPI, newPatient);
+                    patientsHold.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
                     response = true;
                 }else{
                     response = false;

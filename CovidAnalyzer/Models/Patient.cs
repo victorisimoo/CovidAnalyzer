@@ -22,24 +22,8 @@ namespace CovidAnalyzer.Models {
         public bool infected { get; set; }
         public bool analyzed { get; set; }
         public int typePatient { get; set; }
+        public int region { get; set; }
 
-        //Hospital 
-        public string Hospital { get; set; }
-
-        //Method for save patient
-        public bool savePatient(){
-            CodeUser++;
-            this.IdPatient = CodeUser;
-            try {
-                this.dateHourIngress = DateTime.Now;
-                this.infected = getProbability(this.Description);
-                Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
-                Storage.Instance.patientList.Add(this);
-                return true;
-            }catch {
-                return false;
-            }
-        }
 
         public Patient(int id,string name, string lastname, string dpi){
             this.IdPatient = id;
@@ -48,25 +32,6 @@ namespace CovidAnalyzer.Models {
             this.DPI = dpi;
             this.analyzed = false;
         }
-
-        public Patient() { }
-
-        //Method for compare elements
-        public static Comparison<Patient> compareByDPI = delegate (Patient patient_one, Patient patient_two) {
-            return patient_one.DPI.CompareTo(patient_two.DPI);
-        };
-
-        public static Comparison<Patient> compareByName = delegate (Patient patient_one, Patient patient_two) {
-            return patient_one.Name.CompareTo(patient_two.Name);
-        };
-
-        public static Comparison<Patient> compareByLastName = delegate (Patient patient_one, Patient patient_two) {
-            return patient_one.Lastname.CompareTo(patient_two.Lastname);
-        };
-
-        public static Comparison<Patient> compareByHour = delegate (Patient patient_one, Patient patient_two) {
-            return patient_one.dateHourIngress.CompareTo(patient_two.dateHourIngress);
-        };
 
         //Method for return infected probability.
         public bool getProbability(string description){
@@ -111,36 +76,61 @@ namespace CovidAnalyzer.Models {
         }
 
         //Method for defined patient type.
-        public void getTypePatient(){
+        public int getTypePatient(){
             if ((this.Years >= 60 && this.Years > 0)){
                 if (this.infected){
-                    this.typePatient = 1;
+                    return 1;
                 }else {
-                    this.typePatient = 4;
+                    return 4;
                 }
             }else if (this.Years < 60 && this.Years > 18){
                 if (this.infected) {
-                    this.typePatient = 3;
+                    return 3;
                 }else {
-                    this.typePatient = 7;
+                    return 7;
                 }
             }else if (this.Years <= 18 && this.Years > 0) {
                 if (this.infected) {
-                    this.typePatient = 5;
+                    return 5;
                 } else {
-                    this.typePatient = 8;
+                    return 8;
                 }
             }else if (this.Years == 0) {
                 if (this.infected){
-                    this.typePatient = 2;
+                    return 2;
                 }else {
-                    this.typePatient = 6;
+                    return 6;
                 }
+            }
+            return 0;
+        }
+
+        //Method for save patient
+        public bool savePatient() {
+            CodeUser++;
+            this.IdPatient = CodeUser;
+            try {
+                this.dateHourIngress = DateTime.Now;
+                this.infected = getProbability(this.Description);
+                this.typePatient = getTypePatient();
+                this.region = getRegion(this.Departament);
+                if (Storage.Instance.hospitalsActives[this.region].addPatientHold(this)){
+                    saveInStructures();
+                } else if (Storage.Instance.hospitalsActives[this.region].addPatientCared(this)) {
+                    saveInStructures();
+                }
+                return true;
+            } catch {
+                return false;
             }
         }
 
-        public void HospitalRegion(string userDep) {
-            
+        public void saveInStructures(){
+            Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
+            Storage.Instance.patientList.Add(this);
+        }
+
+        public int getRegion(string userDep) {
             string[] region_1 = { "guatemala", "chimaltenango", "sacatepequez" };
             string[] region_2 = { "quetzaltenango", "totonicapan", "huehuetenango", "san marcos" };
             string[] region_3 = { "izabal", "zacapa", "chiquimula", "jalapa", "el progreso" };
@@ -149,33 +139,54 @@ namespace CovidAnalyzer.Models {
             //Hospital 1
             foreach (var departament in region_1) {
                 if(departament == userDep) {
-                    this.Hospital= "Guatemala";
+                    return 1;
                 }
             }
             //Hospital 2
             foreach (var departament in region_2) {
                 if(departament == userDep) {
-                    this.Hospital = "Quetzaltenango";
+                    return 2;
                 }
             }
             //Hospital 3
             foreach (var departament in region_3) {
                 if (departament == userDep) {
-                    this.Hospital = "Oriente";
+                    return 3;
                 }
             }
             //Hospital 4
             foreach (var departament in region_4) {
                 if (departament == userDep){
-                    this.Hospital = "Escuintla";
+                    return 4;
                 }
             }
             //Hospital 5
             foreach (var departament in region_5) {
                 if (departament == userDep) {
-                    this.Hospital = "Peten";
+                    return 5;
                 }
             }
+            return 0;
         }
+
+        public Patient() { }
+
+        //Method for compare elements
+        public static Comparison<Patient> compareByDPI = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.DPI.CompareTo(patient_two.DPI);
+        };
+
+        public static Comparison<Patient> compareByName = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.Name.CompareTo(patient_two.Name);
+        };
+
+        public static Comparison<Patient> compareByLastName = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.Lastname.CompareTo(patient_two.Lastname);
+        };
+
+        public static Comparison<Patient> compareByHour = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.dateHourIngress.CompareTo(patient_two.dateHourIngress);
+        };
+
     }
 }
