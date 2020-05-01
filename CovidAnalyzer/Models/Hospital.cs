@@ -33,6 +33,7 @@ namespace CovidAnalyzer.Models {
 
         public bool addPatientHold(Patient newPatient){
             try {
+                
                 //patientsHold.AddNode(newPatient, );
                 return true;
             }catch {

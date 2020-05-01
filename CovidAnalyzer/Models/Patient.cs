@@ -64,6 +64,10 @@ namespace CovidAnalyzer.Models {
             return patient_one.Lastname.CompareTo(patient_two.Lastname);
         };
 
+        public static Comparison<Patient> compareByHour = delegate (Patient patient_one, Patient patient_two) {
+            return patient_one.dateHourIngress.CompareTo(patient_two.dateHourIngress);
+        };
+
         //Method for return infected probability.
         public bool getProbability(string description){
             int probability = 5;

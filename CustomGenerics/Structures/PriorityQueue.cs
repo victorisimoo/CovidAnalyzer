@@ -8,23 +8,23 @@ namespace CustomGenerics.Structures
     public class PriorityQueue<T> : IPriorityQueue<T>, IEnumerable<T>
     {
         //Priority Queue's methods
-        public void EnqueueTask(T value, Comparison<T> comparison) {
-            Enqueue(value, comparison);
+        public void EnqueuePatient(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
+            Enqueue(value, comparison, comparisonHour);
         }
-        public T DequeueTask(T value, Comparison<T> comparison) {
-            return Dequeue(value, comparison);
+        public T DequeuePatient(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
+            return Dequeue(value, comparison, comparisonHour);
         }
-        public T PeekTask() {
+        public T PeekPatient() {
             return peek();
         }
-        protected override T Dequeue(T value, Comparison<T> comparison) {
+        protected override T Dequeue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             T dequeueNode = root.valueNode;
             DeleteLastNode(root, level());
-            DownChange(root, comparison);
+            DownChange(root, comparison, comparisonHour);
             return dequeueNode;
         }
-        protected override void Enqueue(T value, Comparison<T> comparison) {
-            AddNode(root, value, comparison, level());
+        protected override void Enqueue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
+            AddNode(root, value, comparison, comparisonHour, level());
             levelCompleted = 0;
         }
 
@@ -53,7 +53,7 @@ namespace CustomGenerics.Structures
         }
 
         //Add element in the priority queue
-        public void AddNode(Node<T> root, T value, Comparison<T> ComparePriority, int initialLevel) {
+        public void AddNode(Node<T> root, T value, Comparison<T> ComparePriority, Comparison<T> CompareHour, int initialLevel) {
             if (root.valueNode == null) {
                 root.valueNode = value;
                 root.leftNode = new Node<T>();
@@ -62,30 +62,30 @@ namespace CustomGenerics.Structures
                 root.position = (numberNodes);
             } 
             else if (root.leftNode.valueNode == null && root.rightNode.valueNode == null) {
-                AddNode(root.leftNode, value, ComparePriority, initialLevel);
+                AddNode(root.leftNode, value, ComparePriority, CompareHour, initialLevel);
             }
             else if (root.leftNode.valueNode != null && root.rightNode.valueNode == null) {
-                AddNode(root.rightNode, value, ComparePriority, initialLevel);
+                AddNode(root.rightNode, value, ComparePriority, CompareHour, initialLevel);
             }
             else {
                 if (initialLevel > 1) {
                     if (((numberNodes + 1) / Convert.ToInt32(Math.Pow(2, (initialLevel - 1))) % 2 == 0)) {
-                        AddNode(root.leftNode, value, ComparePriority, --initialLevel);
+                        AddNode(root.leftNode, value, ComparePriority, CompareHour, --initialLevel);
                     }
                     else if (((numberNodes + 1) / Convert.ToInt32(Math.Pow(2, (initialLevel - 1))) % 2 == 1)) {
-                        AddNode(root.rightNode, value, ComparePriority, --initialLevel);
+                        AddNode(root.rightNode, value, ComparePriority, CompareHour, --initialLevel);
                     }
                 } else if (nodeHasChild(root) == 1) {
                     if (root.rightNode.valueNode == null) {
-                        AddNode(root.leftNode, value, ComparePriority, initialLevel);
+                        AddNode(root.leftNode, value, ComparePriority, CompareHour, initialLevel);
                     } else {
-                        AddNode(root.rightNode, value, ComparePriority, initialLevel);
+                        AddNode(root.rightNode, value, ComparePriority, CompareHour, initialLevel);
                     }
                 }
             }
             if (root.leftNode.valueNode != null || root.rightNode.valueNode != null) {
                 T val = root.valueNode;
-                UpChange(root, val, ComparePriority);
+                UpChange(root, val, ComparePriority, CompareHour);
             }
         }
         //Delete the element with most priority
@@ -138,46 +138,52 @@ namespace CustomGenerics.Structures
             return (levelCompleted + 1);
         }
         //Upward ordering for insertion
-        public void UpChange(Node<T> nodeChange, T original, Comparison<T> ComparePriority) {
+        public void UpChange(Node<T> nodeChange, T original, Comparison<T> ComparePriority, Comparison<T> CompareHour) {
             if (nodeHasChild(nodeChange) == 1) {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0 && 
+                    CompareHour.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
                     nodeChange.leftNode.valueNode = original;
                 }
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0 &&
+                    CompareHour.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
                     nodeChange.valueNode = nodeChange.rightNode.valueNode;
                     nodeChange.rightNode.valueNode = original;
                 }
             }
             else if (nodeChange.rightNode.valueNode == null) {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0 &&
+                    CompareHour.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
                     nodeChange.leftNode.valueNode = original;
                 }
             }
         }
         //Downward ordering for delete
-        public void DownChange(Node<T> nodeChange, Comparison<T> ComparePriority) {
+        public void DownChange(Node<T> nodeChange, Comparison<T> ComparePriority, Comparison<T> CompareHour) {
             if (nodeHasChild(nodeChange) == 1) {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0 &&
+                    CompareHour.Invoke(nodeChange.valueNode, nodeChange.rightNode.valueNode) > 0) {
                     T auxValue = nodeChange.valueNode;
                     nodeChange.valueNode = nodeChange.rightNode.valueNode;
                     nodeChange.rightNode.valueNode = auxValue;
-                    DownChange(nodeChange.rightNode, ComparePriority);
+                    DownChange(nodeChange.rightNode, ComparePriority, CompareHour);
                 }
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0 &&
+                    CompareHour.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
                     T auxValue = nodeChange.valueNode;
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
                     nodeChange.leftNode.valueNode = auxValue;
-                    DownChange(nodeChange.leftNode, ComparePriority);
+                    DownChange(nodeChange.leftNode, ComparePriority, CompareHour);
                 }
             }
             else if (nodeChange.rightNode.valueNode == null && nodeChange.leftNode.valueNode != null) {
-                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
+                if (ComparePriority.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0 &&
+                    CompareHour.Invoke(nodeChange.valueNode, nodeChange.leftNode.valueNode) > 0) {
                     T auxValue = nodeChange.valueNode;
                     nodeChange.valueNode = nodeChange.leftNode.valueNode;
                     nodeChange.leftNode.valueNode = auxValue;
-                    DownChange(nodeChange.leftNode, ComparePriority);
+                    DownChange(nodeChange.leftNode, ComparePriority, CompareHour);
                 }
             }
         }
