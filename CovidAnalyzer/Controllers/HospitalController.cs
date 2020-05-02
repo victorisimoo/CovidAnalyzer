@@ -89,6 +89,7 @@ namespace CovidAnalyzer.Controllers {
                         item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
                         item.addPatientCared(item.patientsHold.PeekPatient());
                         Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
                     }
                 }
             }
