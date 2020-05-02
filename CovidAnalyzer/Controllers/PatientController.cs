@@ -122,7 +122,8 @@ namespace CovidAnalyzer.Controllers {
         // POST: Patient/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try {
+            try
+            {
                 var newPatient = new Patient {
                     Name = collection["name"],
                     Lastname = collection["lastname"],
@@ -138,7 +139,7 @@ namespace CovidAnalyzer.Controllers {
             } catch {
                 return View();
             }
-        }
+}
 
         // GET: Patient/Delete/5
         public ActionResult Delete(int id)
