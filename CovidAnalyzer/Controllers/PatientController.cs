@@ -78,14 +78,14 @@ namespace CovidAnalyzer.Controllers {
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
                         Storage.Instance.patientConfirmed.Add(Storage.Instance.patientList.Find(x => x.Name.Contains(id)));
-                        TempData["smsPositive"] = "El paciente está contagiado con COVID-19.";
+                        TempData["smsPositive"] = "el paciente está contagiado con COVID-19.";
                         ViewBag.smsPositive = TempData["smsPositive"].ToString();
                     }
                     else
                     {
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = false;
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
-                        TempData["smsNegative"] = "El paciente no está contagiado con COVID-19.";
+                        TempData["smsNegative"] = "el paciente no está contagiado con COVID-19.";
                         ViewBag.smsNegative = TempData["smsNegative"].ToString();
                     }
                 }

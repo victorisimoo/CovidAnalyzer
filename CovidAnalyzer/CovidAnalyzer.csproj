@@ -189,11 +189,8 @@
     <Content Include="Views\Home\Panel.cshtml" />
     <Content Include="Views\Hospital\HospitalList.cshtml" />
     <Content Include="Views\Home\Virus.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Home\Stadistics.cshtml" />
-=======
     <Content Include="Views\Hospital\Hospital.cshtml" />
->>>>>>> f549cf3b8ef76d791008e44dde64c06a19b42d64
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
