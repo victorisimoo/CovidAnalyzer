@@ -10,19 +10,17 @@ namespace CovidAnalyzer.Controllers {
         public ActionResult Index() {
             return View();
         }
-        public ActionResult HospitalList()
-        {
-            return View();
-        }
-
-        // POST: Hospital/HospitalList
-        [HttpPost]
-        public ActionResult HospitalList(int idHospital) {
-            if (!String.IsNullOrEmpty(Convert.ToString(idHospital))) {
+    
+        public ActionResult HospitalList(string idHospital) {
+            if (!String.IsNullOrEmpty((idHospital))) {
                 TempData["Hospital"] = idHospital;
                 ViewBag.Hospital = TempData["Hospital"].ToString();
+                if(idHospital == "Hospital de Guatemala") { Storage.Instance.hospitalSelected = 1; }
+                else if (idHospital == "Hospital de Quetzaltenango") { Storage.Instance.hospitalSelected = 2; }
+                else if (idHospital == "Hospital de Jalapa") { Storage.Instance.hospitalSelected = 3; }
+                else if (idHospital == "Hospital de Jutiapa") { Storage.Instance.hospitalSelected = 4; }
+                else if (idHospital == "Hospital de Peten") { Storage.Instance.hospitalSelected = 5; }
             }
-            Storage.Instance.hospitalSelected = idHospital;
             return View("HospitalList");
         }
 
@@ -86,11 +84,11 @@ namespace CovidAnalyzer.Controllers {
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
 
                 foreach (var item in Storage.Instance.hospitalsActives) {
-                    if(item.regionHospital == found.region) {
+                    if(item.regionHospital == found.region + 1) {
                         //Agregar el método para sacar de la tabla hash
                         item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
                         item.addPatientCared(item.patientsHold.PeekPatient());
-                        Storage.Instance.patientConfirmed.Remove(found);
+                        Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
                     }
                 }
             }
