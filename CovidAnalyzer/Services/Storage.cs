@@ -14,6 +14,7 @@ namespace CovidAnalyzer.Services {
             }
         }
 
+        public int hospitalSelected;
         public AVLStructure<Patient> patientTree = new AVLStructure<Patient>();
         public HashTable<Patient> bedsTable = new HashTable<Patient>();
         public List<Hospital> hospitalsActives = new List<Hospital>();

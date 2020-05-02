@@ -60,12 +60,11 @@ namespace CovidAnalyzer.Controllers {
                 
             }
 
-            foreach (var item in Storage.Instance.patientList)
-            {
-                if(item.analyzed == false)
-                {
+            foreach (var item in Storage.Instance.patientList) {
+                if(item.analyzed == false) {
                     if (item.infected) {
                         Storage.Instance.patientConfirmed.Add(item);
+                        item.analyzed = true;
                     }
                 }
             }
@@ -78,6 +77,7 @@ namespace CovidAnalyzer.Controllers {
                     {
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
                         Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                        Storage.Instance.patientConfirmed.Add(Storage.Instance.patientList.Find(x => x.Name.Contains(id)));
                         TempData["smsPositive"] = "El paciente está contagiado con COVID-19.";
                         ViewBag.smsPositive = TempData["smsPositive"].ToString();
                     }
@@ -122,7 +122,8 @@ namespace CovidAnalyzer.Controllers {
         // POST: Patient/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection) {
-            try {
+            try
+            {
                 var newPatient = new Patient {
                     Name = collection["name"],
                     Lastname = collection["lastname"],
@@ -138,7 +139,7 @@ namespace CovidAnalyzer.Controllers {
             } catch {
                 return View();
             }
-        }
+}
 
         // GET: Patient/Delete/5
         public ActionResult Delete(int id)

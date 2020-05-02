@@ -6,44 +6,39 @@
 <br />
 <h2>Hospitales</h2>
 <hr />
+@if (ViewBag.Hospital != null)
+{
+
+<div class="alert alert-light alert-dismissible fade show col-5" style="position:relative; top:0px; left:350px;" role="alert">
+    <div class="card">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="card-header bg-warning">
+            Hospital
+        </div>
+        <div class="card-body">
+            @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives)
+            {
+                if (item.nameHostpial == @ViewBag.Hospital)
+                {
+                    <ul class="list-group list-group-flush col-12">
+                        <li class="list-group-item"><strong>Nombre </strong>@Html.DisplayFor(modelItem => item.nameHostpial)</li>
+                        <li class="list-group-item"><strong>Camas disponibles </strong>@Html.DisplayFor(modelItem => item.beadsAvailable)</li>
+                        <li class="list-group-item"><strong>Pacientes registrados </strong>@Html.DisplayFor(modelItem => item.patientsRegisters)</li>
+                    </ul>
+                }
+            }
+            <button type="button" class="btn btn-warning float-right"  style="position:relative; top:5px; left:0px;" onclick="location.href='@Url.Action("Hospital", "Hospital")'">Ir al hospital</button>
+        </div>
+    </div>
+
+</div>
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    if (ViewBag.Hospital != null) {
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Hospital</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    
-                    @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives) {
-                        if (item.nameHostpial == @ViewBag.Hospital) {
-                            <div class="col-sm-3">
-                                <ul class="list-group">
-                                    <li class="list-group-item text-right"><span class="float-left"><strong>Nombre </strong></span>@Html.DisplayFor(modelItem => item.nameHostpial)</li>
-                                    <li class="list-group-item text-right"><span class="float-left"><strong>Camas disponibles </strong></span>@Html.DisplayFor(modelItem => item.beadsAvailable)</li>
-                                    <li class="list-group-item text-right"><span class="float-left"><strong>Pacientes registrados </strong></span>@Html.DisplayFor(modelItem => item.patientsRegisters)</li>
-                                </ul>
-                            </div>
-                        }
-                    }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning">Ir al hospital</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    }
-
-
 
     <div class="container-fluid">
         <div class="controls">
@@ -79,7 +74,7 @@
                             <td class="text-center">32</td>
                             <td class="text-center">23</td>
                             <td class="text-center">55</td>
-                            <td>@Html.ActionLink("Ir al hospital", "HospitalList", new { idHospital = item.nameHostpial })</td>
+                            <td>@Html.ActionLink("Ver hospital", "HospitalList", new { idHospital = item.nameHostpial })</td>
                         </tr>
                     }
                 </tbody>
@@ -87,6 +82,7 @@
         </div>
     </div>
 }
+
 <br />
 <hr />
 <div class="row">

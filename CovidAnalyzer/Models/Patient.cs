@@ -114,9 +114,9 @@ namespace CovidAnalyzer.Models {
                 this.infected = getProbability(this.Description);
                 this.typePatient = getTypePatient();
                 this.region = getRegion(this.Departament);
-                if (Storage.Instance.hospitalsActives[this.region].addPatientHold(this)){
+                if (Storage.Instance.hospitalsActives[(this.region-1)].addPatientHold(this)){
                     saveInStructures();
-                } else if (Storage.Instance.hospitalsActives[this.region].addPatientCared(this)) {
+                } else if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatientCared(this)) {
                     saveInStructures();
                 }
                 return true;

@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using CovidAnalyzer.Services;
 using CovidAnalyzer.Models;
+using System;
+using System.Linq;
 
 namespace CovidAnalyzer.Controllers {
     public class HospitalController : Controller {
@@ -8,13 +10,95 @@ namespace CovidAnalyzer.Controllers {
         public ActionResult Index() {
             return View();
         }
-
+    
         public ActionResult HospitalList(string idHospital) {
-            if (!string.IsNullOrEmpty(idHospital)) {
+            if (!String.IsNullOrEmpty((idHospital))) {
                 TempData["Hospital"] = idHospital;
                 ViewBag.Hospital = TempData["Hospital"].ToString();
+                if(idHospital == "Hospital de Guatemala") { Storage.Instance.hospitalSelected = 1; }
+                else if (idHospital == "Hospital de Quetzaltenango") { Storage.Instance.hospitalSelected = 2; }
+                else if (idHospital == "Hospital de Jalapa") { Storage.Instance.hospitalSelected = 3; }
+                else if (idHospital == "Hospital de Jutiapa") { Storage.Instance.hospitalSelected = 4; }
+                else if (idHospital == "Hospital de Peten") { Storage.Instance.hospitalSelected = 5; }
             }
             return View("HospitalList");
+        }
+
+        public ActionResult Hospital(FormCollection collection, string searchButton, string searchString, string idPatient)
+        {
+            
+            Storage.Instance.patientReturn.Clear();
+
+            if (!String.IsNullOrEmpty(searchButton)) {
+                //If the option selected was DPI
+                if (collection["options"] == "dpi") {
+                    var searchElementDPI = new Patient {
+                        DPI = searchString
+                    };
+                    var foundDPI = Storage.Instance.patientTree.searchValue((searchElementDPI), Patient.compareByDPI);
+                    int count = foundDPI.Count();
+                    if (foundDPI != null && count != 0) {
+                        foreach (var item in foundDPI) {
+                            if (item.region == Storage.Instance.hospitalSelected) {
+                                Storage.Instance.patientReturn.Add(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)));
+                            }
+                        }
+                        return View(Storage.Instance.patientReturn);
+                    }
+                //If the option selected was Lastname
+                } else if (collection["options"] == "lastname") {
+                    var searchElementName = new Patient {
+                        Lastname = searchString
+                    };
+                    var foundLastname = Storage.Instance.patientTree.searchValue(searchElementName, Patient.compareByLastName);
+                    int count = foundLastname.Count();
+                    if (foundLastname != null && count != 0) {
+                        foreach (var item in foundLastname) {
+                            if(item.region == Storage.Instance.hospitalSelected) {
+                                Storage.Instance.patientReturn.Add(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)));
+                            }
+                        }
+                        return View(Storage.Instance.patientReturn);
+                    }
+                    //If the option selected was Name
+                } else if (collection["options"] == "name") {
+                    var searchElementLastname = new Patient {
+                        Name = searchString
+                    };
+                    var foundName = Storage.Instance.patientTree.searchValue(searchElementLastname, Patient.compareByName);
+                    int count = foundName.Count();
+                    if (foundName != null && count != 0) {
+                        foreach (var item in foundName){
+                            if (item.region == Storage.Instance.hospitalSelected) {
+                                Storage.Instance.patientReturn.Add(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)));
+                            }
+                        }
+                        return View(Storage.Instance.patientReturn);
+                    }
+                }    
+            }
+            if (!String.IsNullOrEmpty(idPatient)) {
+                TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
+                ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
+                var patientRecovered = new Patient() { Name = idPatient };
+                var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
+
+                foreach (var item in Storage.Instance.hospitalsActives) {
+                    if(item.regionHospital == found.region + 1) {
+                        //Agregar el método para sacar de la tabla hash
+                        item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
+                        item.addPatientCared(item.patientsHold.PeekPatient());
+                        Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
+                    }
+                }
+            }
+            Storage.Instance.patientReturn.Clear();
+            foreach (var item in Storage.Instance.patientConfirmed) {
+                if (item.region == Storage.Instance.hospitalSelected) {
+                    Storage.Instance.patientReturn.Add(item);
+                }
+            }
+            return View(Storage.Instance.patientReturn);
         }
 
         // GET: Hospital/Details/5
