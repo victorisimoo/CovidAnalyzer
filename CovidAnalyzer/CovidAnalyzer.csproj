@@ -190,6 +190,7 @@
     <Content Include="Views\Home\Panel.cshtml" />
     <Content Include="Views\Hospital\HospitalList.cshtml" />
     <Content Include="Views\Home\Virus.cshtml" />
+    <Content Include="Views\Home\Stadistics.cshtml" />
     <Content Include="Views\Hospital\Hospital.cshtml" />
   </ItemGroup>
   <ItemGroup>

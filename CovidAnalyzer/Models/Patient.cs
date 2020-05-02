@@ -65,12 +65,9 @@ namespace CovidAnalyzer.Models {
                     }
                 }
             }
-
             if (probability >= 60){
-                this.infected = true;
                 return true;
             }else {
-                this.infected = false;
                 return false;
             }
         }

@@ -1,6 +1,8 @@
 ﻿using CovidAnalyzer.Models;
 using CovidAnalyzer.Services;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
 
@@ -10,6 +12,10 @@ namespace CovidAnalyzer.Controllers {
         public ActionResult InitialPage() {
             createHostpitals();
             return View();
+        }
+
+        public ActionResult Stadistics(){
+            return View("Stadistics");
         }
 
         public ActionResult Virus() {
