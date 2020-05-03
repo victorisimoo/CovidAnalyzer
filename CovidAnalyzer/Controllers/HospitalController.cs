@@ -76,15 +76,19 @@ namespace CovidAnalyzer.Controllers {
                 }    
             }
             if (!String.IsNullOrEmpty(idPatient)) {
-                TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
-                ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
+
+                
                 var patientRecovered = new Patient() { Name = idPatient };
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
-
+                TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
+                ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
                 foreach (var item in Storage.Instance.hospitalsActives) {
                     if (item.regionHospital == Storage.Instance.hospitalSelected) {
-                        if (item.healPatient(found)) {
-                            Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
+                        if (Storage.Instance.bedsTable.find(found.DPI) != null) {
+                            if (item.healPatient(found)) {
+                                Storage.Instance.patientConfirmed.RemoveAll(x => x.DPI.Contains(found.DPI));
+                                Storage.Instance.patientsRecovered.Add(found);
+                            }
                         }
                     }
                 }
