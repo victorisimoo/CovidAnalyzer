@@ -48,7 +48,7 @@ namespace CovidAnalyzer.Models {
 
         //Method for change patient status
         public bool changeStatus(Patient patientChange) {
-            if (!patientChange.infected) {
+            if (patientChange.infected) {
                 waitingPatients.deleteElement(patientChange, Patient.compareByDPI);
                 addPatient(patientChange);
                 return true;

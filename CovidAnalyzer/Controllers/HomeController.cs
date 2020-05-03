@@ -2,7 +2,9 @@
 using CovidAnalyzer.Services;
 using Newtonsoft.Json;
 using System;
+using System.Data;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace CovidAnalyzer.Controllers {
@@ -29,6 +31,23 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
+        public ActionResult getData() {
+            Ratio obj = new Ratio();
+            obj.infecteds = Storage.Instance.patientList.Count(x => x.infected == true);
+            obj.registers = Storage.Instance.patientList.Count();
+            obj.supered = Storage.Instance.patientList.Count(x => x.infected == false);
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        public class Ratio {
+
+            public int infecteds { get; set; }
+            public int registers { get; set; }
+            public int supered { get; set; }
+
+        }
+
+
         public void createHostpitals() {
             if (Storage.Instance.hospitalsActives.Count == 0) {
                 var ubication = Server.MapPath($"~/info/hospitals.csv");
@@ -50,6 +69,5 @@ namespace CovidAnalyzer.Controllers {
             }
 
         }
-
     }
 }
