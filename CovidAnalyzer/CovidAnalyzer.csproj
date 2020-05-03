@@ -138,6 +138,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Background.png" />
     <Content Include="Content\Images\doctor-man.png" />
     <Content Include="Content\Images\doctor-woman.png" />
     <Content Include="Content\Images\mask-man.png" />

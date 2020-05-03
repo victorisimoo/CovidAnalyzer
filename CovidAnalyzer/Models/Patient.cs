@@ -65,7 +65,6 @@ namespace CovidAnalyzer.Models {
                     }
                 }
             }
-
             if (probability >= 60){
                 return true;
             }else {

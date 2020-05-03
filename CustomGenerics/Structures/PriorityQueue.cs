@@ -20,7 +20,10 @@ namespace CustomGenerics.Structures
         protected override T Dequeue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             T dequeueNode = root.valueNode;
             DeleteLastNode(root, level());
-            DownChange(root, comparison, comparisonHour);
+            if (root != null) {
+                DownChange(root, comparison, comparisonHour);
+            }
+            
             return dequeueNode;
         }
         protected override void Enqueue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
