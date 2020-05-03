@@ -60,10 +60,13 @@ namespace CovidAnalyzer.Models {
 
         //Method to change hospital beds
         public bool healPatient(Patient patient) {
-            try {                 
+            try
+            {
                 Storage.Instance.bedsTable.delete(patient.DPI);
-                Patient newPatient = attendedPatients.DequeuePatient(null, Patient.compareByName, Patient.compareByHour);
-                Storage.Instance.bedsTable.insert(newPatient.Name, newPatient);
+                Patient newPatient = attendedPatients.DequeuePatient(Patient.compareByName, Patient.compareByHour);
+                if (newPatient != null) {
+                    Storage.Instance.bedsTable.insert(newPatient.Name, newPatient);
+                }
                 return true;
             }catch {
                 return false;

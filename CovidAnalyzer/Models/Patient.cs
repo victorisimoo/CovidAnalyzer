@@ -25,11 +25,12 @@ namespace CovidAnalyzer.Models {
         public int region { get; set; }
 
 
-        public Patient(int id, string name, string lastname, string dpi) {
+        public Patient(int id, string name, string lastname, string dpi, int region) {
             this.IdPatient = id;
             this.Name = name;
             this.Lastname = lastname;
             this.DPI = dpi;
+            this.region = region;
             this.analyzed = false;
         }
 
@@ -112,7 +113,7 @@ namespace CovidAnalyzer.Models {
                 this.typePatient = getTypePatient();
                 this.region = getRegion(this.Departament);
                 if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatient(this)) {
-                    Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
+                    Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI, this.region), Patient.compareByDPI);
                     Storage.Instance.patientList.Add(this);
                 }
                 return true;

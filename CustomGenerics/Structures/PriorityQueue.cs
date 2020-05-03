@@ -11,20 +11,21 @@ namespace CustomGenerics.Structures
         public void EnqueuePatient(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             Enqueue(value, comparison, comparisonHour);
         }
-        public T DequeuePatient(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
-            return Dequeue(value, comparison, comparisonHour);
+        public T DequeuePatient(Comparison<T> comparison, Comparison<T> comparisonHour) {
+            return Dequeue(comparison, comparisonHour);
         }
         public T PeekPatient() {
             return peek();
         }
-        protected override T Dequeue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
-            T dequeueNode = root.valueNode;
-            DeleteLastNode(root, level());
-            if (root != null) {
+        protected override T Dequeue(Comparison<T> comparison, Comparison<T> comparisonHour) {
+            if (root.valueNode != null) {
+                T dequeueNode = root.valueNode;
+                DeleteLastNode(root, level());
                 DownChange(root, comparison, comparisonHour);
+                return dequeueNode;
             }
-            
-            return dequeueNode;
+            return default;
+
         }
         protected override void Enqueue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             AddNode(root, value, comparison, comparisonHour, level());

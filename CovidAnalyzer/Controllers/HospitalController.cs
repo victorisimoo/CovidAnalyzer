@@ -13,13 +13,12 @@ namespace CovidAnalyzer.Controllers {
     
         public ActionResult HospitalList(string idHospital) {
             if (!String.IsNullOrEmpty((idHospital))) {
-                TempData["Hospital"] = idHospital;
-                ViewBag.Hospital = TempData["Hospital"].ToString();
                 if(idHospital == "Hospital de Guatemala") { Storage.Instance.hospitalSelected = 1; }
                 else if (idHospital == "Hospital de Quetzaltenango") { Storage.Instance.hospitalSelected = 2; }
-                else if (idHospital == "Hospital de Jalapa") { Storage.Instance.hospitalSelected = 3; }
-                else if (idHospital == "Hospital de Jutiapa") { Storage.Instance.hospitalSelected = 4; }
+                else if (idHospital == "Hospital de Oriente") { Storage.Instance.hospitalSelected = 3; }
+                else if (idHospital == "Hospital de Escuintla") { Storage.Instance.hospitalSelected = 4; }
                 else if (idHospital == "Hospital de Peten") { Storage.Instance.hospitalSelected = 5; }
+                return RedirectToAction("Hospital");
             }
             return View("HospitalList");
         }
@@ -77,20 +76,20 @@ namespace CovidAnalyzer.Controllers {
                 }    
             }
             if (!String.IsNullOrEmpty(idPatient)) {
-                TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
-                ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
                 var patientRecovered = new Patient() { Name = idPatient };
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
-
-                //foreach (var item in Storage.Instance.hospitalsActives) {
-                //    if(item.regionHospital == found.region + 1) {
-                //        //Agregar el método para sacar de la tabla hash
-                //        item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
-                //        item.addPatientCared(item.patientsHold.PeekPatient());
-                //        Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
-                //        Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
-                //    }
-                //}
+                foreach (var item in Storage.Instance.hospitalsActives) {
+                    if (item.regionHospital == Storage.Instance.hospitalSelected) {
+                        if (Storage.Instance.bedsTable.find(found.DPI) != null) {
+                            if (item.healPatient(found)) {
+                                TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
+                                ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
+                                Storage.Instance.patientConfirmed.RemoveAll(x => x.DPI.Contains(found.DPI));
+                                Storage.Instance.patientsRecovered.Add(found);
+                            }
+                        }
+                    }
+                }
             }
             Storage.Instance.patientReturn.Clear();
             foreach (var item in Storage.Instance.patientConfirmed) {

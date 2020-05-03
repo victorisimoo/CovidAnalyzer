@@ -78,9 +78,7 @@ namespace CustomGenerics.Structures {
             size = 0;
             root = null;
         }
-
         
-
         IEnumerator IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
         }

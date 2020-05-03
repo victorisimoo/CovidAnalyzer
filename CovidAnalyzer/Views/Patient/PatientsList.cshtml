@@ -76,7 +76,7 @@
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
                             @if (item.infected == false) {
-                                <td class="text-center">@Html.ActionLink("Realizar prueba", "PatientsList", new { id = item.Name })</td>
+                                <td class="text-center">@Html.ActionLink("Realizar prueba", "PatientsList", new { id = item.DPI })</td>
                             } else {
                                 <td class="text-center">Contagiado</td>
                             }
@@ -91,7 +91,7 @@
     <button type="button" id="searchButton" style="        position: relative;
         top: 20px;
         left: 0px;
-" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("InitialPage", "Home")'">
+" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("Panel", "Home")'">
         Volver
     </button>
 }

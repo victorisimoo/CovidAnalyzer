@@ -6,35 +6,6 @@
 <br />
 <h2>Hospitales</h2>
 <hr />
-@if (ViewBag.Hospital != null)
-{
-
-<div class="alert alert-light alert-dismissible fade show col-5" style="position:relative; top:0px; left:350px;" role="alert">
-    <div class="card">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="card-header bg-warning">
-            Hospital
-        </div>
-        <div class="card-body">
-            @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives)
-            {
-                if (item.nameHostpial == @ViewBag.Hospital)
-                {
-                    <ul class="list-group list-group-flush col-12">
-                        <li class="list-group-item"><strong>Nombre </strong>@Html.DisplayFor(modelItem => item.nameHostpial)</li>
-                        <li class="list-group-item"><strong>Camas disponibles </strong>@Html.DisplayFor(modelItem => item.beadsAvailable)</li>
-                        <li class="list-group-item"><strong>Pacientes registrados </strong>@Html.DisplayFor(modelItem => item.patientsRegisters)</li>
-                    </ul>
-                }
-            }
-            <button type="button" class="btn btn-warning float-right"  style="position:relative; top:5px; left:0px;" onclick="location.href='@Url.Action("Hospital", "Hospital")'">Ir al hospital</button>
-        </div>
-    </div>
-
-</div>
-}
 
 @using (Html.BeginForm())
 {
