@@ -16,7 +16,7 @@ namespace CovidAnalyzer.Models {
         public string Municipality { get; set; }
         public string Symptom { get; set; }
         public string Description { get; set; }
-        public DateTime dateHourIngress { get; set;}
+        public DateTime dateHourIngress { get; set; }
 
         //Parameters for defined patient status.
         public bool infected { get; set; }
@@ -25,16 +25,17 @@ namespace CovidAnalyzer.Models {
         public int region { get; set; }
 
 
-        public Patient(int id,string name, string lastname, string dpi){
+        public Patient(int id, string name, string lastname, string dpi, int region) {
             this.IdPatient = id;
             this.Name = name;
             this.Lastname = lastname;
             this.DPI = dpi;
+            this.region = region;
             this.analyzed = false;
         }
 
         //Method for return infected probability.
-        public bool getProbability(string description){
+        public bool getProbability(string description) {
             int probability = 5;
             description = description.ToLower();
             string[] descriptionAnalicer = description.Split(' ');
@@ -43,59 +44,59 @@ namespace CovidAnalyzer.Models {
             string[] family = { "hermana", "papá", "mamá", "novia", "esposa", "hermano", "esposo" };
             string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "abrazo" };
 
-            foreach (var words in descriptionAnalicer){
-                foreach (var item in travel){
-                    if (words == item){
+            foreach (var words in descriptionAnalicer) {
+                foreach (var item in travel) {
+                    if (words == item) {
                         probability += 10;
                     }
                 }
-                foreach (var item in relatives){
-                    if (words == item){
+                foreach (var item in relatives) {
+                    if (words == item) {
                         probability += 15;
                     }
                 }
-                foreach (var item in family){
+                foreach (var item in family) {
                     if (words == item) {
                         probability += 30;
                     }
                 }
-                foreach (var item in reunions){
-                    if (words == item){
+                foreach (var item in reunions) {
+                    if (words == item) {
                         probability += 30;
                     }
                 }
             }
-            if (probability >= 60){
+            if (probability >= 60) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }
 
         //Method for defined patient type.
-        public int getTypePatient(){
-            if ((this.Years >= 60 && this.Years > 0)){
-                if (this.infected){
+        public int getTypePatient() {
+            if ((this.Years >= 60 && this.Years > 0)) {
+                if (this.infected) {
                     return 1;
-                }else {
+                } else {
                     return 4;
                 }
-            }else if (this.Years < 60 && this.Years > 18){
+            } else if (this.Years < 60 && this.Years > 18) {
                 if (this.infected) {
                     return 3;
-                }else {
+                } else {
                     return 7;
                 }
-            }else if (this.Years <= 18 && this.Years > 0) {
+            } else if (this.Years <= 18 && this.Years > 0) {
                 if (this.infected) {
                     return 5;
                 } else {
                     return 8;
                 }
-            }else if (this.Years == 0) {
-                if (this.infected){
+            } else if (this.Years == 0) {
+                if (this.infected) {
                     return 2;
-                }else {
+                } else {
                     return 6;
                 }
             }
@@ -111,20 +112,14 @@ namespace CovidAnalyzer.Models {
                 this.infected = getProbability(this.Description);
                 this.typePatient = getTypePatient();
                 this.region = getRegion(this.Departament);
-                if (Storage.Instance.hospitalsActives[(this.region-1)].addPatientHold(this)){
-                    saveInStructures();
-                } else if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatientCared(this)) {
-                    saveInStructures();
+                if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatient(this)) {
+                    Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI, this.region), Patient.compareByDPI);
+                    Storage.Instance.patientList.Add(this);
                 }
                 return true;
             } catch {
                 return false;
             }
-        }
-
-        public void saveInStructures(){
-            Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI), Patient.compareByDPI);
-            Storage.Instance.patientList.Add(this);
         }
 
         public int getRegion(string userDep) {

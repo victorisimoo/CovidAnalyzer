@@ -64,6 +64,11 @@ namespace CovidAnalyzer.Controllers {
                 if(item.analyzed == false) {
                     if (item.infected) {
                         Storage.Instance.patientConfirmed.Add(item);
+                        foreach (var hospital in Storage.Instance.hospitalsActives) {
+                            if (hospital.regionHospital == Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)).region) {
+                                hospital.addPatient(Storage.Instance.patientList.Find(x => x.DPI.Contains(id)));
+                            }
+                        }
                         item.analyzed = true;
                     }
                 }
@@ -72,12 +77,17 @@ namespace CovidAnalyzer.Controllers {
             if (!String.IsNullOrEmpty(id)) {
                 Random randomCovid = new Random();
                 int posOrNeg = randomCovid.Next(1, 10);
-                if (Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed==false) {
-                    if (posOrNeg >= 5)
-                    {
-                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = true;
-                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
-                        Storage.Instance.patientConfirmed.Add(Storage.Instance.patientList.Find(x => x.Name.Contains(id)));
+                if (Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).analyzed==false) {
+                    if (posOrNeg >= 5) {
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).infected = true;
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).analyzed = true;
+                        Storage.Instance.patientConfirmed.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(id)));
+                        foreach (var item in Storage.Instance.hospitalsActives) {
+                            if (item.regionHospital == Storage.Instance.patientConfirmed.Find(x=>x.DPI.Contains(id)).region) {
+                                item.addPatient(Storage.Instance.patientList.Find(x => x.DPI.Contains(id)));
+                            }
+                        }
+
                         TempData["smsPositive"] = "el paciente está contagiado con COVID-19.";
                         ViewBag.smsPositive = TempData["smsPositive"].ToString();
                     }

@@ -23,8 +23,7 @@ namespace CovidAnalyzer.Controllers {
             return View("HospitalList");
         }
 
-        public ActionResult Hospital(FormCollection collection, string searchButton, string searchString, string idPatient)
-        {
+        public ActionResult Hospital(FormCollection collection, string searchButton, string searchString, string idPatient) {
             
             Storage.Instance.patientReturn.Clear();
 
@@ -83,12 +82,10 @@ namespace CovidAnalyzer.Controllers {
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
 
                 foreach (var item in Storage.Instance.hospitalsActives) {
-                    if(item.regionHospital == found.region + 1) {
-                        //Agregar el método para sacar de la tabla hash
-                        item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
-                        item.addPatientCared(item.patientsHold.PeekPatient());
-                        Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
-                        Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
+                    if (item.regionHospital == Storage.Instance.hospitalSelected) {
+                        if (item.healPatient(found)) {
+                            Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
+                        }
                     }
                 }
             }

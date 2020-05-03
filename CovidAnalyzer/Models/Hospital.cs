@@ -10,12 +10,12 @@ namespace CovidAnalyzer.Models {
         public int regionHospital;
         public int beadsAvailable;
         public int patientsRegisters;
-        public PriorityQueue<Patient> patientsHold;
-        public PriorityQueue<Patient> patientsCared;
+        public AVLStructure<Patient> waitingPatients;
+        public PriorityQueue<Patient> attendedPatients;
 
         public Hospital(){
-            patientsHold = new PriorityQueue<Patient>();
-            patientsCared = new PriorityQueue<Patient>();
+            waitingPatients = new AVLStructure<Patient>();
+            attendedPatients = new PriorityQueue<Patient>();
         }
 
         public bool saveHospital() {
@@ -27,30 +27,50 @@ namespace CovidAnalyzer.Models {
             }
         }
 
-        public bool addPatientHold(Patient newPatient) {
-            this.beadsAvailable++;
-            bool response = false;
-            try {
-                if ((beadsAvailable <= 10)){
-                    Storage.Instance.bedsTable.insert(newPatient.DPI, newPatient);
-                    patientsHold.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
-                    response = true;
-                }else{
-                    response = false;
+        //Method for add patient in hospital
+        public bool addPatient(Patient patientAdd) {
+            try { 
+                //Validation for elected internal structur 
+                if (patientAdd.infected) {
+                    if (beadsAvailable <= 10) {
+                        Storage.Instance.bedsTable.insert(patientAdd.DPI, patientAdd);
+                    }else {
+                        attendedPatients.EnqueuePatient(patientAdd, Patient.compareByName, Patient.compareByHour);
+                    }
+                }else {
+                    waitingPatients.addElement(patientAdd, Patient.compareByDPI);
                 }
-            }catch {
-                response = false;
-            }
-            return response;
-        }
-
-        public bool addPatientCared(Patient newPatient){
-            try {
-                patientsCared.EnqueuePatient(newPatient, Patient.compareByName, Patient.compareByHour);
                 return true;
-            } catch {
+            }catch {
                 return false;
             }
+        }
+
+        //Method for change patient status
+        public bool changeStatus(Patient patientChange) {
+            if (patientChange.infected) {
+                waitingPatients.deleteElement(patientChange, Patient.compareByDPI);
+                addPatient(patientChange);
+                return true;
+            }else {
+                waitingPatients.deleteElement(patientChange, Patient.compareByDPI);
+                Storage.Instance.patientConfirmed.Remove(patientChange);
+                return false;
+            }
+        }
+
+        //Method to change hospital beds
+        public bool healPatient(Patient patient) {
+            try
+            {
+                Storage.Instance.bedsTable.delete(patient.DPI);
+                Patient newPatient = attendedPatients.DequeuePatient(Patient.compareByName, Patient.compareByHour);
+                Storage.Instance.bedsTable.insert(newPatient.Name, newPatient);
+                return true;
+            }catch {
+                return false;
+            }
+
         }
     }
 }
