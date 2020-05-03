@@ -13,13 +13,12 @@ namespace CovidAnalyzer.Controllers {
     
         public ActionResult HospitalList(string idHospital) {
             if (!String.IsNullOrEmpty((idHospital))) {
-                TempData["Hospital"] = idHospital;
-                ViewBag.Hospital = TempData["Hospital"].ToString();
                 if(idHospital == "Hospital de Guatemala") { Storage.Instance.hospitalSelected = 1; }
                 else if (idHospital == "Hospital de Quetzaltenango") { Storage.Instance.hospitalSelected = 2; }
-                else if (idHospital == "Hospital de Jalapa") { Storage.Instance.hospitalSelected = 3; }
-                else if (idHospital == "Hospital de Jutiapa") { Storage.Instance.hospitalSelected = 4; }
+                else if (idHospital == "Hospital de Oriente") { Storage.Instance.hospitalSelected = 3; }
+                else if (idHospital == "Hospital de Escuintla") { Storage.Instance.hospitalSelected = 4; }
                 else if (idHospital == "Hospital de Peten") { Storage.Instance.hospitalSelected = 5; }
+                return RedirectToAction("Hospital");
             }
             return View("HospitalList");
         }
