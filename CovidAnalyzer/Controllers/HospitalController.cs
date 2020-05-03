@@ -82,15 +82,15 @@ namespace CovidAnalyzer.Controllers {
                 var patientRecovered = new Patient() { Name = idPatient };
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
 
-                foreach (var item in Storage.Instance.hospitalsActives) {
-                    if(item.regionHospital == found.region + 1) {
-                        //Agregar el método para sacar de la tabla hash
-                        item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
-                        item.addPatientCared(item.patientsHold.PeekPatient());
-                        Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
-                        Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
-                    }
-                }
+                //foreach (var item in Storage.Instance.hospitalsActives) {
+                //    if(item.regionHospital == found.region + 1) {
+                //        //Agregar el método para sacar de la tabla hash
+                //        item.patientsCared.DequeuePatient(found, Patient.compareByName, Patient.compareByHour);
+                //        item.addPatientCared(item.patientsHold.PeekPatient());
+                //        Storage.Instance.patientConfirmed.RemoveAll(x=>x.DPI.Contains(found.DPI));
+                //        Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
+                //    }
+                //}
             }
             Storage.Instance.patientReturn.Clear();
             foreach (var item in Storage.Instance.patientConfirmed) {
