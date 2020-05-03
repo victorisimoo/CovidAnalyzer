@@ -2,11 +2,87 @@
 @{
     ViewBag.Title = "Stadistics";
 }
+
 <script src="~/Scripts/chart/exporting.js"></script>
 <script src="~/Scripts/chart/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <br />
-<h2>Estado actual</h2>
+<h2>Desarrollo de la enfermedad</h2>
 <hr />
+<div class="container">
+    <div class="bio-info">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+            </div>
+            <div class="col-md-6">
+                <h3><strong>Comportamiento del virus</strong></h3>
+                <p>Estudios realizados en China muestran que cerca del 85% de las personas afectadas por el virus no habían sido diagnosticadas, pero podrían seguir transmitiendo el virus. Estas cifras muestran que estamos viendo solo la punta del iceberg. Con serias dificultades logísticas, técnicas y culturales para el confinamiento, el cambio de comportamientos en la comunidad será clave para cortar la cadena de transmisión en países en desarrollo.</p>
+                <h3><strong>Higiene y aislamiento</strong></h3>
+                <p>La pandemia requerirá en otros países un trabajo de respuesta en primera línea en el ámbito del agua. Para nuestro director técnico “reforzar las prácticas de higiene, definir los procedimientos de aislamiento y proporcionar equipo para sanitarios y cuidadores son los tres ángulos en los que hay que poner mayor esfuerzo”.</p>
+                <br />
+                <p align="center">
+                    <button type="button" onclick="location.href='@Url.Action("Panel", "Home")'" class="btn btn-warning">Regresar</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/Home/getData", function (data){
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Estado actual'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Infectados',
+                        y: data.infecteds
+                    }, {
+                        name: 'Sospechoso',
+                        y: data.sospech
+                    }, {
+                        name: 'Atendidos',
+                        y: data.atenden
+                    }, {
+                        name: 'Curados',
+                        y: data.supered
+                    }]
+                }]
+            });
+        });
+    });
+</script>
 
 

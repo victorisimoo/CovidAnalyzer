@@ -34,16 +34,18 @@ namespace CovidAnalyzer.Controllers {
         public ActionResult getData() {
             Ratio obj = new Ratio();
             obj.infecteds = Storage.Instance.patientList.Count(x => x.infected == true);
-            obj.registers = Storage.Instance.patientList.Count();
+            obj.sospech = Storage.Instance.patientList.Count(x => x.infected == true) - Storage.Instance.patientList.Count();
             obj.supered = Storage.Instance.patientList.Count(x => x.infected == false);
+            obj.atenden = Storage.Instance.bedsTable.numBeds;
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
         public class Ratio {
 
             public int infecteds { get; set; }
-            public int registers { get; set; }
+            public int sospech { get; set; }
             public int supered { get; set; }
+            public int atenden { get; set; }
 
         }
 

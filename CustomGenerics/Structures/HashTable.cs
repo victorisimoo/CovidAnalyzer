@@ -29,6 +29,7 @@ namespace CustomGenerics.Structures {
         private int sizeIdx = 0;
         private HashEntry<T>[] table;
         private int numEntries, numFilledSlots, numProbes = 0;
+        public int numBeds;
 
         //Constructor class
         public HashTable() {
@@ -65,11 +66,13 @@ namespace CustomGenerics.Structures {
                     ++numEntries;
                     ++numFilledSlots;
                     numProbes = i;
+                    numBeds++;
                     return true;
                 }else if (table[index].key.Equals(key) && !table[index].IsDeleted()) {
                     table[index].value.Add(value);
                     ++numEntries;
                     numProbes = i;
+                    numBeds++;
                     return true;
                 }
             }
@@ -119,6 +122,7 @@ namespace CustomGenerics.Structures {
                     return false;
                 } else if (table[index].key.Equals(key) && !table[index].IsDeleted()) {
                     table[index].isDeleted = true;
+                    numBeds--;
                     return true;
                 }
             }
