@@ -24,8 +24,7 @@ namespace CovidAnalyzer.Controllers {
             return View("HospitalList");
         }
 
-        public ActionResult Hospital(FormCollection collection, string searchButton, string searchString, string idPatient)
-        {
+        public ActionResult Hospital(FormCollection collection, string searchButton, string searchString, string idPatient) {
             
             Storage.Instance.patientReturn.Clear();
 
