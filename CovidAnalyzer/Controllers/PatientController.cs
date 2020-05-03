@@ -64,11 +64,6 @@ namespace CovidAnalyzer.Controllers {
                 if(item.analyzed == false) {
                     if (item.infected) {
                         Storage.Instance.patientConfirmed.Add(item);
-                        foreach (var hospital in Storage.Instance.hospitalsActives) {
-                            if (hospital.regionHospital == Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)).region) {
-                                hospital.addPatient(Storage.Instance.patientList.Find(x => x.DPI.Contains(id)));
-                            }
-                        }
                         item.analyzed = true;
                     }
                 }
@@ -83,8 +78,8 @@ namespace CovidAnalyzer.Controllers {
                         Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).analyzed = true;
                         Storage.Instance.patientConfirmed.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(id)));
                         foreach (var item in Storage.Instance.hospitalsActives) {
-                            if (item.regionHospital == Storage.Instance.patientConfirmed.Find(x=>x.DPI.Contains(id)).region) {
-                                item.addPatient(Storage.Instance.patientList.Find(x => x.DPI.Contains(id)));
+                            if (item.regionHospital == Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(id)).region) {
+                                item.changeStatus(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(id)));
                             }
                         }
 

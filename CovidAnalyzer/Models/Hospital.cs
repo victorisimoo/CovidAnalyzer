@@ -54,7 +54,6 @@ namespace CovidAnalyzer.Models {
                 return true;
             }else {
                 waitingPatients.deleteElement(patientChange, Patient.compareByDPI);
-                Storage.Instance.patientConfirmed.Remove(patientChange);
                 return false;
             }
         }
@@ -65,7 +64,9 @@ namespace CovidAnalyzer.Models {
             {
                 Storage.Instance.bedsTable.delete(patient.DPI);
                 Patient newPatient = attendedPatients.DequeuePatient(Patient.compareByName, Patient.compareByHour);
-                Storage.Instance.bedsTable.insert(newPatient.Name, newPatient);
+                if (newPatient != null) {
+                    Storage.Instance.bedsTable.insert(newPatient.Name, newPatient);
+                }
                 return true;
             }catch {
                 return false;

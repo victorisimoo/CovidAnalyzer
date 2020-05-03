@@ -18,13 +18,14 @@ namespace CustomGenerics.Structures
             return peek();
         }
         protected override T Dequeue(Comparison<T> comparison, Comparison<T> comparisonHour) {
-            T dequeueNode = root.valueNode;
-            DeleteLastNode(root, level());
             if (root.valueNode != null) {
+                T dequeueNode = root.valueNode;
+                DeleteLastNode(root, level());
                 DownChange(root, comparison, comparisonHour);
+                return dequeueNode;
             }
-            
-            return dequeueNode;
+            return default;
+
         }
         protected override void Enqueue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             AddNode(root, value, comparison, comparisonHour, level());

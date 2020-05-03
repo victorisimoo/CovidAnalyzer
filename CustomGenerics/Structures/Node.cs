@@ -9,19 +9,15 @@ namespace CustomGenerics.Structures {
 
         public Node<T> addNodeElement(Node<T> root, Node<T> newNode, Comparison<T> comparison)
         {
-            if (root == null)
-            {
+            if (root == null) {
                 newNode.bf = 0;
                 newNode.height = 0;
                 return newNode;
             }
-            if (comparison.Invoke(newNode.getValue(), root.getValue()) > 0)
-            {
+            if (comparison.Invoke(newNode.getValue(), root.getValue()) > 0) {
                 root.rightNode = rotate(addNodeElement(root.rightNode, newNode, comparison));
-
             }
-            else
-            {
+            else {
                 root.leftNode = rotate(addNodeElement(root.leftNode, newNode, comparison));
             }
             root = rotate(root);
