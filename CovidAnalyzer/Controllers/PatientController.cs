@@ -88,8 +88,8 @@ namespace CovidAnalyzer.Controllers {
                     }
                     else
                     {
-                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).infected = false;
-                        Storage.Instance.patientList.Find(x => x.Name.Contains(id)).analyzed = true;
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).infected = false;
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).analyzed = true;
                         TempData["smsNegative"] = "el paciente no está contagiado con COVID-19.";
                         ViewBag.smsNegative = TempData["smsNegative"].ToString();
                     }
