@@ -5,8 +5,8 @@ using System.Collections;
 
 namespace CustomGenerics.Structures
 {
-    public class PriorityQueue<T> : IPriorityQueue<T>, IEnumerable<T>
-    {
+    public class PriorityQueue<T> : IPriorityQueue<T>, IEnumerable<T> {
+
         //Priority Queue's methods
         public void EnqueuePatient(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             Enqueue(value, comparison, comparisonHour);

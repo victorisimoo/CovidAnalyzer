@@ -32,20 +32,20 @@
                         <th scope="col" class="text-center">Infectados</th>
                         <th scope="col" class="text-center">Recuperados</th>
                         <th scope="col" class="text-center">Por atender</th>
+                        <th scope="col" class="text-center">Acción</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives)
-                    {
+                    @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives) {
                         <tr>
                             <td class="text-center">@Html.DisplayFor(modelItem => item.nameHostpial)</td>
                             <td class="text-center">@Html.DisplayFor(modelItem => item.regionHospital)</td>
                             <td class="text-center">@Html.DisplayFor(modelItem => item.address)</td>
-                            <td class="text-center">32</td>
-                            <td class="text-center">23</td>
-                            <td class="text-center">55</td>
-                            <td>@Html.ActionLink("Ver hospital", "HospitalList", new { idHospital = item.nameHostpial })</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.cantInfected(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.cantRecovered(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.cantAttended(item.regionHospital))</td>
+                            <td class="text-center">@Html.ActionLink("Ver hospital", "HospitalList", new { idHospital = item.nameHostpial })</td>
                         </tr>
                     }
                 </tbody>

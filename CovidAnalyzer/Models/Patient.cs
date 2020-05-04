@@ -21,6 +21,7 @@ namespace CovidAnalyzer.Models {
         //Parameters for defined patient status.
         public bool infected { get; set; }
         public bool analyzed { get; set; }
+        public bool recovered { get; set; }
         public int typePatient { get; set; }
         public int region { get; set; }
 
@@ -32,6 +33,7 @@ namespace CovidAnalyzer.Models {
             this.DPI = dpi;
             this.region = region;
             this.analyzed = false;
+            this.recovered = false;
         }
 
         //Method for return infected probability.
