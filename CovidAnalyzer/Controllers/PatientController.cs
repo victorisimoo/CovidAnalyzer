@@ -157,7 +157,7 @@ namespace CovidAnalyzer.Controllers {
         {
             try
             {
-                // TODO: Add delete logic here
+                // TODO: Add delete logic re
 
                 return RedirectToAction("Index");
             }

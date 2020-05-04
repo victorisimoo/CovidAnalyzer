@@ -1,5 +1,6 @@
 ﻿using CovidAnalyzer.Services;
 using CustomGenerics.Structures;
+using System.Linq;
 
 namespace CovidAnalyzer.Models {
     public class Hospital {
@@ -25,6 +26,10 @@ namespace CovidAnalyzer.Models {
             } catch {
                 return false;
             }
+        }
+
+        public int getCantAttendend(){
+            return attendedPatients.numberNodes;
         }
 
         //Method for add patient in hospital

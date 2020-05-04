@@ -4,8 +4,7 @@
     ViewBag.Title = "PatientsList";
 }
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <br />
     if (ViewBag.smsPositive != null) {
@@ -16,6 +15,7 @@
              </button>
         </div>
     }
+
     if (ViewBag.smsNegative != null) {
         <div class="alert alert-success alert-dismissible fade show col-5" style="position: absolute; top: 50px; left: 700px;" role="alert">
             <strong>Paciente no contagiado: </strong> @ViewBag.smsNegative
@@ -24,7 +24,7 @@
               </button>
         </div>
     }
-    <h1>Pacientes registrados</h1>
+    <h2>Pacientes registrados</h2>
     <hr />
     <div class="controls">
         <div class="form-inline float-left">
