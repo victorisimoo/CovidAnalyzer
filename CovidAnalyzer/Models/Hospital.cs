@@ -40,6 +40,7 @@ namespace CovidAnalyzer.Models {
                 if (patientAdd.infected) {
                     if (beadsAvailable <= 10) {
                         Storage.Instance.bedsTable.insert(patientAdd.DPI, patientAdd);
+
                     }else {
                         attendedPatients.EnqueuePatient(patientAdd, Patient.compareByName, Patient.compareByHour);
                     }

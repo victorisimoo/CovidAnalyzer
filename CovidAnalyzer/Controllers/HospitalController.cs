@@ -26,7 +26,7 @@ namespace CovidAnalyzer.Controllers {
             return View("HospitalList");
         }
 
-        public ActionResult Hospital(FormCollection collection, int? page, string searchButton, string searchString, string idPatient) {
+        public ActionResult Hospital(FormCollection collection, int? page, string searchButton, string searchString, string idRecovered, string idAnalyzed) {
 
             int pageSize = 5;
             int pageIndex = 1;
@@ -80,15 +80,15 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }    
             }
-            if (!String.IsNullOrEmpty(idPatient)) {
-                var patientRecovered = new Patient() { Name = idPatient };
+            if (!String.IsNullOrEmpty(idRecovered)) {
+                var patientRecovered = new Patient() { Name = idRecovered };
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByName)[0];
                 foreach (var item in Storage.Instance.hospitalsActives) {
                     if (item.regionHospital == Storage.Instance.hospitalSelected) {
                         if (Storage.Instance.bedsTable.find(found.DPI) != null) {
                             if (item.healPatient(found)) {
                                 TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
-                                ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
+                                ViewBag.smsRecovered = TempData["smsRecovered"].ToString();
                                 Storage.Instance.patientConfirmed.RemoveAll(x => x.DPI.Contains(found.DPI));
                                 Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
                                 Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).recovered = true;
@@ -98,12 +98,54 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
-            Storage.Instance.patientReturn.Clear();
-            foreach (var item in Storage.Instance.patientConfirmed) {
-                if (item.region == Storage.Instance.hospitalSelected) {
-                    Storage.Instance.patientReturn.Add(item);
+
+            if (!String.IsNullOrEmpty(idAnalyzed)) {
+                Random randomCovid = new Random();
+                int posOrNeg = randomCovid.Next(1, 10);
+                if (Storage.Instance.patientList.Find(x => x.DPI.Contains(idAnalyzed)).analyzed == false) {
+                    if (posOrNeg >= 5) {
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(idAnalyzed)).infected = true;
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(idAnalyzed)).analyzed = true;
+                        Storage.Instance.patientConfirmed.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(idAnalyzed)));
+                        foreach (var item in Storage.Instance.hospitalsActives) {
+                            if (item.regionHospital == Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(idAnalyzed)).region) {
+                                item.changeStatus(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(idAnalyzed)));
+                                Storage.Instance.patientSuspect.RemoveAll(x => x.DPI.Contains(idAnalyzed));
+                            }
+                        }
+                        TempData["smsPositive"] = "el paciente está contagiado con COVID-19.";
+                        ViewBag.smsPositive = TempData["smsPositive"].ToString();
+                    } else {
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(idAnalyzed)).infected = false;
+                        Storage.Instance.patientList.Find(x => x.DPI.Contains(idAnalyzed)).analyzed = true;
+                        TempData["smsNegative"] = "el paciente no está contagiado con COVID-19.";
+                        ViewBag.smsNegative = TempData["smsNegative"].ToString();
+                    }
                 }
             }
+
+            Storage.Instance.patientReturn.Clear();
+            foreach (var item in Storage.Instance.hospitalsActives) {
+                if (item.regionHospital == Storage.Instance.hospitalSelected) {
+                    foreach (var itemReturn in Storage.Instance.patientConfirmed) {
+                        var foundInTree = Storage.Instance.patientTree.searchValue(itemReturn, Patient.compareByName);
+                        foreach (var itemFoundTree in foundInTree) {
+                            if (Storage.Instance.bedsTable.find(itemFoundTree.DPI) != null && itemFoundTree.region == item.regionHospital && itemReturn.analyzed == true) {
+                                Storage.Instance.patientReturn.Add(itemReturn);
+                            }
+                        }  
+                    }
+                    foreach(var itemSuspects in Storage.Instance.patientSuspect) {
+                        var foundInWaiting = item.waitingPatients.searchValue(itemSuspects, Patient.compareByName);
+                        foreach (var itemFound in foundInWaiting){
+                            if (itemFound.region == item.regionHospital && itemSuspects.analyzed == false){
+                                Storage.Instance.patientReturn.Add(itemSuspects);
+                            }
+                        }
+                    }
+                }
+            }
+
             IPagedList<Patient> listPatient = null;
             List<Patient> auxiliarPatientList = new List<Patient>();
             auxiliarPatientList = Storage.Instance.patientReturn;

@@ -9,25 +9,7 @@
 {
     @Html.AntiForgeryToken()
     <br />
-    if (ViewBag.smsPositive != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show col-5" style="position: absolute; top: 50px; left: 700px;" role="alert">
-            <strong>Paciente contagiado: </strong> @ViewBag.smsPositive
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
-
-    if (ViewBag.smsNegative != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show col-5" style="position: absolute; top: 50px; left: 700px;" role="alert">
-            <strong>Paciente no contagiado: </strong> @ViewBag.smsNegative
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
+    
     <h2>Pacientes registrados</h2>
     <hr />
     if (CovidAnalyzer.Services.Storage.Instance.patientList.Count != 0)
@@ -61,46 +43,25 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        if (item.analyzed == true)
-                        {
-                            <tr>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Lastname)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
-                                @if (item.infected == false && item.recovered == true)
-                                {
-                                    <td class="text-center">Recuperado</td>
-                                }
-                                else if (item.infected == true)
-                                {
-                                    <td class="text-center">Contagiado</td>
-                                }
-                                else if (item.infected == false)
-                                {
-                                    <td class="text-center">No contagiado</td>
-                                }
-                            </tr>
-                        }
-                        else
-                        {
-                            <tr>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Lastname)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
-                                <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
-                                @if (item.infected == false)
-                                {
-                                    <td class="text-center">@Html.ActionLink("Realizar prueba", "PatientsList", new { id = item.DPI })</td>
-                                }
-                                else
-                                {
-                                    <td class="text-center">Contagiado</td>
-                                }
-                            </tr>
-                        }
+                         <tr>
+                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td> 
+                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Lastname)</td>
+                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Years)</td>
+                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Departament)</td>
+                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Municipality)</td>
+                             @if (item.infected == false && item.recovered == true) {
+                                 <td class="text-center">Recuperado</td>
+                              }
+                              else if (item.infected == true) {
+                                 <td class="text-center">Contagiado</td>
+                              }
+                              else if (item.infected == false && item.analyzed== true) {
+                                 <td class="text-center">No contagiado</td>
+                              }
+                              else if (item.infected == false) {
+                                 <td class="text-center">Sospechoso</td>
+                              }
+                         </tr>
                     }
                 </tbody>
             </table>
