@@ -144,7 +144,7 @@ namespace CovidAnalyzer.Controllers {
             } catch {
                 return View();
             }
-}
+        }
 
         // GET: Patient/Delete/5
         public ActionResult Delete(int id) {

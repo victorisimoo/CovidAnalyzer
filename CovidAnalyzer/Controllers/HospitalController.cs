@@ -85,6 +85,7 @@ namespace CovidAnalyzer.Controllers {
                                 TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
                                 ViewBag.ssmsRecovered = TempData["smsRecovered"].ToString();
                                 Storage.Instance.patientConfirmed.RemoveAll(x => x.DPI.Contains(found.DPI));
+                                Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI)).infected = false;
                                 Storage.Instance.patientsRecovered.Add(found);
                             }
                         }
