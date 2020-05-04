@@ -1,6 +1,7 @@
 ﻿using CovidAnalyzer.Services;
 using CustomGenerics.Structures;
 using System.Linq;
+using System;
 
 namespace CovidAnalyzer.Models {
     public class Hospital {

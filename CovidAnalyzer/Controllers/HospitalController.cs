@@ -3,6 +3,8 @@ using CovidAnalyzer.Services;
 using CovidAnalyzer.Models;
 using System;
 using System.Linq;
+using PagedList;
+using System.Collections.Generic;
 
 namespace CovidAnalyzer.Controllers {
     public class HospitalController : Controller {
@@ -20,13 +22,16 @@ namespace CovidAnalyzer.Controllers {
                 else if (idHospital == "Hospital de Peten") { Storage.Instance.hospitalSelected = 5; }
                 return RedirectToAction("Hospital");
             }
+
             return View("HospitalList");
         }
 
-        public ActionResult Hospital(FormCollection collection, string searchButton, string searchString, string idPatient) {
-            
-            Storage.Instance.patientReturn.Clear();
+        public ActionResult Hospital(FormCollection collection, int? page, string searchButton, string searchString, string idPatient) {
 
+            int pageSize = 5;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            Storage.Instance.patientReturn.Clear();
             if (!String.IsNullOrEmpty(searchButton)) {
                 //If the option selected was DPI
                 if (collection["options"] == "dpi") {
@@ -41,7 +46,7 @@ namespace CovidAnalyzer.Controllers {
                                 Storage.Instance.patientReturn.Add(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)));
                             }
                         }
-                        return View(Storage.Instance.patientReturn);
+                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
                     }
                 //If the option selected was Lastname
                 } else if (collection["options"] == "lastname") {
@@ -56,7 +61,7 @@ namespace CovidAnalyzer.Controllers {
                                 Storage.Instance.patientReturn.Add(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)));
                             }
                         }
-                        return View(Storage.Instance.patientReturn);
+                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
                     }
                     //If the option selected was Name
                 } else if (collection["options"] == "name") {
@@ -71,7 +76,7 @@ namespace CovidAnalyzer.Controllers {
                                 Storage.Instance.patientReturn.Add(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(item.DPI)));
                             }
                         }
-                        return View(Storage.Instance.patientReturn);
+                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
                     }
                 }    
             }
@@ -99,7 +104,11 @@ namespace CovidAnalyzer.Controllers {
                     Storage.Instance.patientReturn.Add(item);
                 }
             }
-            return View(Storage.Instance.patientReturn);
+            IPagedList<Patient> listPatient = null;
+            List<Patient> auxiliarPatientList = new List<Patient>();
+            auxiliarPatientList = Storage.Instance.patientReturn;
+            listPatient = auxiliarPatientList.ToPagedList(pageIndex, pageSize);
+            return View(listPatient);
         }
 
         // GET: Hospital/Details/5

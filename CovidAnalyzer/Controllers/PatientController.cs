@@ -2,14 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using CovidAnalyzer.Services;
+using PagedList;
 
 namespace CovidAnalyzer.Controllers {
     public class PatientController : Controller {
-        public ActionResult PatientsList(FormCollection collection, string searchButton, string searchString, string id, string create) {
-           
+        public ActionResult PatientsList(FormCollection collection, int? page, string searchButton, string searchString, string id, string create) {
+
+            int pageSize = 5;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             Storage.Instance.patientReturn.Clear();
 
             if (!String.IsNullOrEmpty(searchButton)) {
@@ -24,7 +27,7 @@ namespace CovidAnalyzer.Controllers {
                         foreach (var item in foundDPI) {
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
-                        return View(Storage.Instance.patientReturn);
+                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
                     }
                 //If the option selected was Lastname
                 } else if (collection["options"] == "lastname") {
@@ -37,7 +40,7 @@ namespace CovidAnalyzer.Controllers {
                         foreach (var item in foundLastname) {
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
-                        return View(Storage.Instance.patientReturn);
+                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
                     }
                     //If the option selected was Name
                 } else if (collection["options"] == "name") {
@@ -50,7 +53,7 @@ namespace CovidAnalyzer.Controllers {
                         foreach (var item in foundName){
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
-                        return View(Storage.Instance.patientReturn);
+                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
                     }
                 }
                 else {
@@ -82,12 +85,9 @@ namespace CovidAnalyzer.Controllers {
                                 item.changeStatus(Storage.Instance.patientConfirmed.Find(x => x.DPI.Contains(id)));
                             }
                         }
-
                         TempData["smsPositive"] = "el paciente está contagiado con COVID-19.";
                         ViewBag.smsPositive = TempData["smsPositive"].ToString();
-                    }
-                    else
-                    {
+                    } else{
                         Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).infected = false;
                         Storage.Instance.patientList.Find(x => x.DPI.Contains(id)).analyzed = true;
                         TempData["smsNegative"] = "el paciente no está contagiado con COVID-19.";
@@ -95,14 +95,12 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
-
-            if (!String.IsNullOrEmpty(create)) {
-                return RedirectToAction("Create");
-            }
             Storage.Instance.patientReturn.Clear();
-            
-
-            return View(Storage.Instance.patientList);
+            IPagedList<Patient> listPatient = null;
+            List<Patient> auxiliarPatientList = new List<Patient>();
+            auxiliarPatientList = Storage.Instance.patientList;
+            listPatient = auxiliarPatientList.ToPagedList(pageIndex, pageSize);
+            return View(listPatient);
         }
 
 

@@ -166,3 +166,7 @@ C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csp
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csproj.CopyComplete
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.pdb
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml

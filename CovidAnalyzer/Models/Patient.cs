@@ -43,8 +43,8 @@ namespace CovidAnalyzer.Models {
             string[] descriptionAnalicer = description.Split(' ');
             string[] travel = { "europa", "viaje", "china", "italia", "avión" };
             string[] relatives = { "familiar", "conocido", "vecino", "amigo", "compañero" };
-            string[] family = { "hermana", "papá", "mamá", "novia", "esposa", "hermano", "esposo" };
-            string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "abrazo" };
+            string[] family = { "hermana", "papá", "mamá", "novia", "novio", "esposa", "hermano", "esposo" };
+            string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "estornudo","tos" , "abrazo" };
 
             foreach (var words in descriptionAnalicer) {
                 foreach (var item in travel) {
