@@ -21,6 +21,7 @@ namespace CovidAnalyzer.Models {
         //Parameters for defined patient status.
         public bool infected { get; set; }
         public bool analyzed { get; set; }
+        public bool recovered { get; set; }
         public int typePatient { get; set; }
         public int region { get; set; }
 
@@ -32,6 +33,7 @@ namespace CovidAnalyzer.Models {
             this.DPI = dpi;
             this.region = region;
             this.analyzed = false;
+            this.recovered = false;
         }
 
         //Method for return infected probability.
@@ -41,8 +43,8 @@ namespace CovidAnalyzer.Models {
             string[] descriptionAnalicer = description.Split(' ');
             string[] travel = { "europa", "viaje", "china", "italia", "avión" };
             string[] relatives = { "familiar", "conocido", "vecino", "amigo", "compañero" };
-            string[] family = { "hermana", "papá", "mamá", "novia", "esposa", "hermano", "esposo" };
-            string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "abrazo" };
+            string[] family = { "hermana", "papá", "mamá", "novia", "novio", "esposa", "hermano", "esposo" };
+            string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "estornudo","tos" , "abrazo" };
 
             foreach (var words in descriptionAnalicer) {
                 foreach (var item in travel) {
@@ -115,6 +117,9 @@ namespace CovidAnalyzer.Models {
                 if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatient(this)) {
                     Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI, this.region), Patient.compareByDPI);
                     Storage.Instance.patientList.Add(this);
+                }
+                if (infected == false) {
+                    Storage.Instance.patientSuspect.Add(this);
                 }
                 return true;
             } catch {

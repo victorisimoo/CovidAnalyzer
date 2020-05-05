@@ -1,6 +1,7 @@
 ﻿using CovidAnalyzer.Services;
 using CustomGenerics.Structures;
 using System.Linq;
+using System;
 
 namespace CovidAnalyzer.Models {
     public class Hospital {
@@ -39,6 +40,7 @@ namespace CovidAnalyzer.Models {
                 if (patientAdd.infected) {
                     if (beadsAvailable <= 10) {
                         Storage.Instance.bedsTable.insert(patientAdd.DPI, patientAdd);
+
                     }else {
                         attendedPatients.EnqueuePatient(patientAdd, Patient.compareByName, Patient.compareByHour);
                     }

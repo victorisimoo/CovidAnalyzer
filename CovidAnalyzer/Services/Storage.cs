@@ -40,6 +40,7 @@ namespace CovidAnalyzer.Services {
 
         public List<Patient> patientList = new List<Patient>();
         public List<Patient> patientConfirmed = new List<Patient>();
+        public List<Patient> patientSuspect = new List<Patient>();
         public List<Patient> patientReturn = new List<Patient>();
         public List<Patient> patientsRecovered = new List<Patient>();
 
