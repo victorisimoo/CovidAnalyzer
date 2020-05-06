@@ -63,12 +63,14 @@
                         <th scope="col" class="text-center">Edad</th>
                         <th scope="col" class="text-center">Departamento</th>
                         <th scope="col" class="text-center">Municipio</th>
-                        <th></th>
+                        <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
+                        if (item != null)
+                        {
                         <tr>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Name)</td>
                             <td class="text-center" style="text-transform:capitalize">@Html.DisplayFor(modelItem => item.Lastname)</td>
@@ -81,9 +83,10 @@
                             }
                             else if (item.recovered == false)
                             {
-                                <td>@Html.ActionLink("Recuperado", "Hospital", new { idRecovered = item.Name })</td>
+                                <td class="text-center">@Html.ActionLink("Recuperado", "Hospital", new { idRecovered = item.DPI })</td>
                             }
                         </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -91,16 +94,16 @@
         <hr style="position: relative; top: 20px; left: 0px;" />
         <div id="container" style="position:relative; top:90px; left:500px;">
             <div class="form-group">
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("PatientsList", "Patient", new { page }))
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Hospital", "Hospital", new { page }))
             </div>
         </div>
-        <button type="button" id="searchButton" style="position: relative; top: 20px; left: 0px;" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("Panel", "Home")'">
+        <button type="button" id="searchButton" style="position: relative; top: 20px; left: 0px;" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("HospitalList", "Hospital")'">
             Volver
         </button>
     }
     else
     {
-        <button type="button" id="searchButton" style="position: relative; top: 20px; left: 0px;" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("Panel", "Home")'">
+        <button type="button" id="searchButton" style="position: relative; top: 20px; left: 0px;" value="menu" class="btn btn-light" onclick="location.href='@Url.Action("HospitalList", "Hospital")'">
             Volver
         </button>
         <h3 class="text-muted" style="position: relative; top: 200px; left: 370px;">No hay pacientes registrados</h3>
