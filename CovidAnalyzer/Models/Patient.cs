@@ -118,9 +118,6 @@ namespace CovidAnalyzer.Models {
                     Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI, this.region), Patient.compareByDPI);
                     Storage.Instance.patientList.Add(this);
                 }
-                if (infected == false) {
-                    Storage.Instance.patientSuspect.Add(this);
-                }
                 return true;
             } catch {
                 return false;
