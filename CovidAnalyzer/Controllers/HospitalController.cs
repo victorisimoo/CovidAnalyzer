@@ -112,7 +112,7 @@ namespace CovidAnalyzer.Controllers {
                 var found = Storage.Instance.patientTree.searchValue(patientRecovered, Patient.compareByDPI)[0];
                 var foundStatus = Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI));
                 if (found.region == Storage.Instance.hospitalSelected) {
-                    if (Storage.Instance.bedsTable.find(found.DPI) != null) {
+                    if (Storage.Instance.bedsTable.find(found.DPI) != null && foundStatus.recovered == false) {
                         if (Storage.Instance.hospitalsActives[regionSelected - 1].healPatient(found)) {
                             TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
                             ViewBag.smsRecovered = TempData["smsRecovered"].ToString();
