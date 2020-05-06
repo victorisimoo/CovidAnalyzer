@@ -111,8 +111,6 @@ namespace CovidAnalyzer.Controllers {
                 }
             }
         
-    
-
             if (!String.IsNullOrEmpty(idAnalyzed)) {
                 Random randomCovid = new Random();
                 int posOrNeg = randomCovid.Next(1, 10);
