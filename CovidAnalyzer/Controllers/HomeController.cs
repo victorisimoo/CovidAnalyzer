@@ -69,7 +69,6 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
-
         }
     }
 }

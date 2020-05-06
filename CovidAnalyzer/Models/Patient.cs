@@ -25,7 +25,6 @@ namespace CovidAnalyzer.Models {
         public int typePatient { get; set; }
         public int region { get; set; }
 
-
         public Patient(int id, string name, string lastname, string dpi, int region) {
             this.IdPatient = id;
             this.Name = name;

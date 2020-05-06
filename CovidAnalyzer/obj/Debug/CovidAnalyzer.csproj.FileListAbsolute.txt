@@ -170,3 +170,7 @@ C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml

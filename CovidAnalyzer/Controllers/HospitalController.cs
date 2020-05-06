@@ -52,7 +52,9 @@ namespace CovidAnalyzer.Controllers {
                                 }
                             }
                         }
-                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        if (Storage.Instance.patientReturn.Count != 0) {
+                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        }
                     }
                     //If the option selected was Lastname
                 } else if (collection["options"] == "lastname") {
@@ -72,7 +74,9 @@ namespace CovidAnalyzer.Controllers {
                                 }
                             }
                         }
-                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        if (Storage.Instance.patientReturn.Count != 0) {
+                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        }
                     }
                     //If the option selected was Name
                 } else if (collection["options"] == "name") {
@@ -92,7 +96,9 @@ namespace CovidAnalyzer.Controllers {
                                 }
                             }
                         }
-                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        if (Storage.Instance.patientReturn.Count != 0) {
+                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        }
                     }
                 } else {
                     foreach (var itemRegion in Storage.Instance.patientList) {
@@ -106,6 +112,7 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
+            
             //Recovered patients
             if (!String.IsNullOrEmpty(idRecovered)) {
                 var patientRecovered = new Patient() { DPI = idRecovered };
@@ -123,6 +130,7 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
+
             //Analyzed Patient
             if (!String.IsNullOrEmpty(idAnalyzed)) {
                 Random randomCovid = new Random();

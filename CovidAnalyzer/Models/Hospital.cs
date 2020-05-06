@@ -1,7 +1,5 @@
 ﻿using CovidAnalyzer.Services;
 using CustomGenerics.Structures;
-using System.Linq;
-using System;
 
 namespace CovidAnalyzer.Models {
     public class Hospital {
@@ -44,7 +42,13 @@ namespace CovidAnalyzer.Models {
                         attendedPatients.EnqueuePatient(patientAdd, Patient.compareByName, Patient.compareByHour);
                     }
                 }else {
-                    waitingPatients.addElement(patientAdd, Patient.compareByDPI);
+                    if (waitingPatients.isEmpty()) {
+                        waitingPatients = new AVLStructure<Patient>();
+                        waitingPatients.addElement(patientAdd, Patient.compareByDPI);
+                    }else {
+                        waitingPatients.addElement(patientAdd, Patient.compareByDPI);
+                    }
+                    
                 }
                 return true;
             }catch {
