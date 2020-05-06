@@ -25,7 +25,6 @@ namespace CovidAnalyzer.Models {
         public int typePatient { get; set; }
         public int region { get; set; }
 
-
         public Patient(int id, string name, string lastname, string dpi, int region) {
             this.IdPatient = id;
             this.Name = name;
@@ -117,9 +116,6 @@ namespace CovidAnalyzer.Models {
                 if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatient(this)) {
                     Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI, this.region), Patient.compareByDPI);
                     Storage.Instance.patientList.Add(this);
-                }
-                if (infected == false) {
-                    Storage.Instance.patientSuspect.Add(this);
                 }
                 return true;
             } catch {

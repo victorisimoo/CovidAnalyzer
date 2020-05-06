@@ -40,12 +40,17 @@ namespace CovidAnalyzer.Models {
                 if (patientAdd.infected) {
                     if (beadsAvailable <= 10) {
                         Storage.Instance.bedsTable.insert(patientAdd.DPI, patientAdd);
-
                     }else {
                         attendedPatients.EnqueuePatient(patientAdd, Patient.compareByName, Patient.compareByHour);
                     }
                 }else {
-                    waitingPatients.addElement(patientAdd, Patient.compareByDPI);
+                    if (waitingPatients.isEmpty()) {
+                        waitingPatients = new AVLStructure<Patient>();
+                        waitingPatients.addElement(patientAdd, Patient.compareByDPI);
+                    }else {
+                        waitingPatients.addElement(patientAdd, Patient.compareByDPI);
+                    }
+                    
                 }
                 return true;
             }catch {
@@ -67,8 +72,7 @@ namespace CovidAnalyzer.Models {
 
         //Method to change hospital beds
         public bool healPatient(Patient patient) {
-            try
-            {
+            try {
                 Storage.Instance.bedsTable.delete(patient.DPI);
                 Patient newPatient = attendedPatients.DequeuePatient(Patient.compareByName, Patient.compareByHour);
                 if (newPatient != null) {

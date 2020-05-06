@@ -75,6 +75,7 @@ body {
     background-color: #fff;
     padding: 0;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;

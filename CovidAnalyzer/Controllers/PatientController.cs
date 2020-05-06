@@ -27,7 +27,9 @@ namespace CovidAnalyzer.Controllers {
                         foreach (var item in foundDPI) {
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
-                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        if (Storage.Instance.patientReturn.Count != 0) {
+                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        }
                     }
                 //If the option selected was Lastname
                 } else if (collection["options"] == "lastname") {
@@ -40,7 +42,9 @@ namespace CovidAnalyzer.Controllers {
                         foreach (var item in foundLastname) {
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
-                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        if (Storage.Instance.patientReturn.Count != 0) {
+                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        }
                     }
                     //If the option selected was Name
                 } else if (collection["options"] == "name") {
@@ -53,7 +57,9 @@ namespace CovidAnalyzer.Controllers {
                         foreach (var item in foundName){
                             Storage.Instance.patientReturn.Add(Storage.Instance.patientList.Find(x => x.DPI.Contains(item.DPI)));
                         }
-                        return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        if(Storage.Instance.patientReturn.Count != 0){
+                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                        }
                     }
                 }
                 else {
@@ -65,7 +71,6 @@ namespace CovidAnalyzer.Controllers {
             foreach (var item in Storage.Instance.patientList) {
                 if(item.analyzed == false) {
                     if (item.infected) {
-                        Storage.Instance.patientConfirmed.Add(item);
                         item.analyzed = true;
                     }
                 }
