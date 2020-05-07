@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "PanelView";
+    ViewBag.Title = "Panel";
 }
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col main pt-5 mt-3">
             <h1 class="display-4 font-weight-bold mb-4">Covid Analyzer</h1>
-            <p class="lead d-none d-sm-block">En la actualidad se está viviendo una crisis mundial debido a la pandemia del virus COVID-19.</p>
+            <p class="lead d-none d-sm-block">El estado actual de la pandemia en el país es:</p>
             <div class="row mb-3">
                 <div class="col-xl-3 col-sm-6 py-2">
                     <div class="card text-white bg-warning h-100">
@@ -25,7 +25,7 @@
                                 <i class="fa fa-list fa-4x"></i>
                             </div>
                             <h6 class="text-uppercase">Infectados</h6>
-                            <h1 class="display-4">@CovidAnalyzer.Services.Storage.Instance.patientList.Count(x => x.infected == true)</h1>
+                            <h1 class="display-4">@(CovidAnalyzer.Services.Storage.Instance.cantInfected())</h1>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                                 <i class="fa fa-twitter fa-4x"></i>
                             </div>
                             <h6 class="text-uppercase">Recuperados</h6>
-                            <h1 class="display-4">@CovidAnalyzer.Services.Storage.Instance.patientsRecovered.Count</h1>
+                            <h1 class="display-4">@CovidAnalyzer.Services.Storage.Instance.cantRecovered()</h1>
                         </div>
                     </div>
                 </div>

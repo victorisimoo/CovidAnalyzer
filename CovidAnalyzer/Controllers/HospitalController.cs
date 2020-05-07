@@ -121,7 +121,7 @@ namespace CovidAnalyzer.Controllers {
                 if (found.region == Storage.Instance.hospitalSelected) {
                     if (Storage.Instance.bedsTable.find(found.DPI) != null && foundStatus.recovered == false) {
                         if (Storage.Instance.hospitalsActives[regionSelected - 1].healPatient(found)) {
-                            TempData["smsRecovered"] = "El paciente ha sido dada de alta.";
+                            TempData["smsRecovered"] = "el paciente ha sido dada de alta, está recuperado.";
                             ViewBag.smsRecovered = TempData["smsRecovered"].ToString();
                             foundStatus.infected = false;
                             foundStatus.recovered = true;

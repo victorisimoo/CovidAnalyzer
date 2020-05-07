@@ -15,7 +15,7 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
-        public ActionResult Stadistics(){
+        public ActionResult Stadistics() {
             return View("Stadistics");
         }
 
@@ -23,32 +23,28 @@ namespace CovidAnalyzer.Controllers {
             return View("Virus");
         }
 
-        public ActionResult Panel(){
+        public ActionResult Panel() {
             return View("Panel");
         }
 
-        public ActionResult PatientsList(){
+        public ActionResult PatientsList() {
             return View();
         }
 
         public ActionResult getData() {
             Ratio obj = new Ratio();
-            obj.infecteds = Storage.Instance.patientList.Count(x => x.infected == true);
-            obj.sospech = Storage.Instance.patientList.Count(x => x.infected == true) - Storage.Instance.patientList.Count();
-            obj.supered = Storage.Instance.patientList.Count(x => x.infected == false);
-            obj.atenden = Storage.Instance.bedsTable.numBeds;
+            obj.infecteds = Storage.Instance.cantInfected();
+            obj.sospech = Storage.Instance.cantSuspect();
+            obj.supered = Storage.Instance.cantRecovered();
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
         public class Ratio {
-
             public int infecteds { get; set; }
             public int sospech { get; set; }
             public int supered { get; set; }
-            public int atenden { get; set; }
 
         }
-
 
         public void createHostpitals() {
             if (Storage.Instance.hospitalsActives.Count == 0) {

@@ -20,12 +20,23 @@ namespace CovidAnalyzer.Services {
             return patientList.Count((x => x.region == regionSelected && x.infected == true));
         }
 
+        public int cantInfected() {
+            return patientList.Count((x => x.infected == true));
+        }
+
         public int cantRecovered(int regionSelected){
-            return patientsRecovered.Count((x => x.region == regionSelected && x.infected == false));
+            return patientList.Count(x => x.region == regionSelected && x.infected == false && x.analyzed == true && x.recovered == true);
+        }
+
+        public int cantRecovered() {
+            return patientList.Count(x => x.recovered == true);
         }
 
         public int cantAttended(int regionSelected){
-            return (hospitalsActives.Find(x=>x.regionHospital == regionSelected).getCantAttendend());
+            return patientList.Count(x => x.region == regionSelected && x.infected == false && x.analyzed == false && x.recovered == false);
+        }
+        public int cantSuspect() {
+            return patientList.Count(x => x.infected == false && x.analyzed == false && x.recovered == false);
         }
 
         public string getHospitalName(int hospitalSelecte) {
