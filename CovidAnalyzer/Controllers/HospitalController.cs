@@ -53,7 +53,7 @@ namespace CovidAnalyzer.Controllers {
                             }
                         }
                         if (Storage.Instance.patientReturn.Count != 0) {
-                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                            return View(Storage.Instance.patientReturn.OrderBy(x => x.typePatient).ToPagedList(pageIndex, pageSize));
                         }
                     }
                     //If the option selected was Lastname
@@ -75,7 +75,7 @@ namespace CovidAnalyzer.Controllers {
                             }
                         }
                         if (Storage.Instance.patientReturn.Count != 0) {
-                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                            return View(Storage.Instance.patientReturn.OrderBy(x => x.typePatient).ToPagedList(pageIndex, pageSize));
                         }
                     }
                     //If the option selected was Name
@@ -97,7 +97,7 @@ namespace CovidAnalyzer.Controllers {
                             }
                         }
                         if (Storage.Instance.patientReturn.Count != 0) {
-                            return View(Storage.Instance.patientReturn.ToPagedList(pageIndex, pageSize));
+                            return View(Storage.Instance.patientReturn.OrderBy(x => x.typePatient).ToPagedList(pageIndex, pageSize));
                         }
                     }
                 } else {
@@ -170,7 +170,7 @@ namespace CovidAnalyzer.Controllers {
             IPagedList<Patient> listPatient = null;
             List<Patient> auxiliarPatientList = new List<Patient>();
             auxiliarPatientList = Storage.Instance.patientReturn;
-            listPatient = auxiliarPatientList.ToPagedList(pageIndex, pageSize);
+            listPatient = auxiliarPatientList.OrderBy(x => x.typePatient).ToPagedList(pageIndex, pageSize);
             return View(listPatient);
         }
 
