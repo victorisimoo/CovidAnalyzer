@@ -29,12 +29,11 @@ namespace CovidAnalyzer.Services {
         }
 
         public int cantRecovered() {
-            return patientList.Count(x => x.infected == false && x.analyzed == true && x.recovered == true);
+            return patientList.Count(x => x.recovered == true);
         }
 
-
         public int cantAttended(int regionSelected){
-            return patientList.Count(x => x.region == regionSelected && x.infected == true && x.analyzed == false && x.recovered == false);
+            return patientList.Count(x => x.region == regionSelected && x.infected == false && x.analyzed == false && x.recovered == false);
         }
         public int cantSuspect() {
             return patientList.Count(x => x.infected == false && x.analyzed == false && x.recovered == false);

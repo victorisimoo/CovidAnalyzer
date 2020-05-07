@@ -15,7 +15,7 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
-        public ActionResult Stadistics(){
+        public ActionResult Stadistics() {
             return View("Stadistics");
         }
 
@@ -23,11 +23,11 @@ namespace CovidAnalyzer.Controllers {
             return View("Virus");
         }
 
-        public ActionResult Panel(){
+        public ActionResult Panel() {
             return View("Panel");
         }
 
-        public ActionResult PatientsList(){
+        public ActionResult PatientsList() {
             return View();
         }
 
@@ -45,7 +45,6 @@ namespace CovidAnalyzer.Controllers {
             public int supered { get; set; }
 
         }
-
 
         public void createHostpitals() {
             if (Storage.Instance.hospitalsActives.Count == 0) {
