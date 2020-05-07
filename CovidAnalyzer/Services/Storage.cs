@@ -40,7 +40,7 @@ namespace CovidAnalyzer.Services {
         }
 
         public string getHospitalName(int hospitalSelecte) {
-            return (hospitalsActives.Find(x => x.regionHospital == hospitalSelecte).nameHostpial);
+                return (hospitalsActives.Find(x => x.regionHospital == hospitalSelecte).nameHostpial);
         }
 
 
