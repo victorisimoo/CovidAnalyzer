@@ -47,7 +47,7 @@ namespace CovidAnalyzer.Controllers {
                             if (Storage.Instance.bedsTable.find(item.DPI) != null) {
                                 Storage.Instance.patientReturn.Add(foundStatus);
                             } else {
-                                if(foundStatus.analyzed == false && foundStatus.recovered == false) {
+                                if (foundStatus.analyzed == false && foundStatus.recovered == false) {
                                     Storage.Instance.patientReturn.Add(foundStatus);
                                 }
                             }
@@ -69,7 +69,7 @@ namespace CovidAnalyzer.Controllers {
                             if (Storage.Instance.bedsTable.find(item.DPI) != null) {
                                 Storage.Instance.patientReturn.Add(foundStatus);
                             } else {
-                                if(foundStatus.analyzed == false && foundStatus.recovered == false) {
+                                if (foundStatus.analyzed == false && foundStatus.recovered == false) {
                                     Storage.Instance.patientReturn.Add(foundStatus);
                                 }
                             }
@@ -91,7 +91,7 @@ namespace CovidAnalyzer.Controllers {
                             if (Storage.Instance.bedsTable.find(item.DPI) != null) {
                                 Storage.Instance.patientReturn.Add(foundStatus);
                             } else {
-                                if(foundStatus.analyzed == false && foundStatus.recovered == false) {
+                                if (foundStatus.analyzed == false && foundStatus.recovered == false) {
                                     Storage.Instance.patientReturn.Add(foundStatus);
                                 }
                             }
@@ -112,7 +112,7 @@ namespace CovidAnalyzer.Controllers {
                     }
                 }
             }
-            
+
             //Recovered patients
             if (!String.IsNullOrEmpty(idRecovered)) {
                 var patientRecovered = new Patient() { DPI = idRecovered };
@@ -120,12 +120,11 @@ namespace CovidAnalyzer.Controllers {
                 var foundStatus = Storage.Instance.patientList.Find(x => x.DPI.Contains(found.DPI));
                 if (found.region == Storage.Instance.hospitalSelected) {
                     if (Storage.Instance.bedsTable.find(found.DPI) != null && foundStatus.recovered == false) {
-                        if (Storage.Instance.hospitalsActives[regionSelected - 1].healPatient(found)) {
+                        if (Storage.Instance.hospitalsActives[regionSelected - 1].HealPatient(found)) {
                             TempData["smsRecovered"] = "el paciente ha sido dada de alta, está recuperado.";
                             ViewBag.smsRecovered = TempData["smsRecovered"].ToString();
                             foundStatus.infected = false;
                             foundStatus.recovered = true;
-                            Storage.Instance.patientsRecovered.Add(foundStatus);
                         }
                     }
                 }
@@ -141,14 +140,14 @@ namespace CovidAnalyzer.Controllers {
                         if (posOrNeg >= 5) {
                             patientAnalyzed.infected = true;
                             patientAnalyzed.analyzed = true;
-                            Storage.Instance.hospitalsActives[regionSelected - 1].changeStatus(patientAnalyzed);
+                            Storage.Instance.hospitalsActives[regionSelected - 1].ChangeStatus(patientAnalyzed);
 
                             TempData["smsPositive"] = "el paciente está contagiado con COVID-19.";
                             ViewBag.smsPositive = TempData["smsPositive"].ToString();
                         } else {
                             patientAnalyzed.infected = false;
                             patientAnalyzed.analyzed = true;
-                            Storage.Instance.hospitalsActives[regionSelected - 1].changeStatus(patientAnalyzed);
+                            Storage.Instance.hospitalsActives[regionSelected - 1].ChangeStatus(patientAnalyzed);
 
                             TempData["smsNegative"] = "el paciente no está contagiado con COVID-19.";
                             ViewBag.smsNegative = TempData["smsNegative"].ToString();
@@ -172,62 +171,6 @@ namespace CovidAnalyzer.Controllers {
             auxiliarPatientList = Storage.Instance.patientReturn;
             listPatient = auxiliarPatientList.OrderBy(x => x.typePatient).ToPagedList(pageIndex, pageSize);
             return View(listPatient);
-        }
-
-        // GET: Hospital/Details/5
-        public ActionResult Details(int id) {
-            return View();
-        }
-
-        // GET: Hospital/Create
-        public ActionResult Create() {
-            return View();
-        }
-
-        // POST: Hospital/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection) {
-            try {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
-        }
-
-        // GET: Hospital/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
-        }
-
-        // POST: Hospital/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection) {
-            try {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
-        }
-
-        // GET: Hospital/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: Hospital/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection) {
-            try {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            } catch {
-                return View();
-            }
         }
     }
 }
