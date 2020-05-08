@@ -1,0 +1,121 @@
+﻿@model CovidAnalyzer.Models.Patient
+
+@{
+    ViewBag.Title = "Crear";
+}
+
+<br />
+<h1>Registro de pacientes</h1>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <form id="contact-form" method="post" role="form">
+            <div class="controls">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Nombre</label>
+                            <input id="form_name" type="text" name="name" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El nombre es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Apellido</label>
+                            <input id="form_name" type="text" name="lastname" class="form-control" placeholder="Por favor, ingresa tu nombre" required="required" data-error="El apellido es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">DPI</label>
+                            <input id="form_name" type="number" name="dpi" class="form-control" placeholder="Por favor, ingresa tu DPI" min="1000000000000" max="9999999999999" required="required" data-error="El DPI es requerido.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="controls">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Edad</label>
+                            <input id="form_name" type="number" name="years" class="form-control" placeholder="Por favor, ingrese su edad" required="required" data-error="La edad es requerida.">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Departamento</label>
+                        <select class="form-control" name="department">
+                            <option value="guatemala">Guatemala</option>
+                            <option value="alta verapaz">Alta Verapaz</option>
+                            <option value="baja verapaz">Baja Verapaz</option>
+                            <option value="chimaltenango">Chimaltenango</option>
+                            <option value="chiquimula">Chiquimula</option>
+                            <option value="peten">Petén</option>
+                            <option value="el progreso">El progreso</option>
+                            <option value="quiche">Quiché</option>
+                            <option value="escuintla">Escuintla</option>
+                            <option value="huehuetenango">Huehuetenango</option>
+                            <option value="izabal">Izabal</option>
+                            <option value="jalapa">Jalapa</option>
+                            <option value="jutiapa">Jutiapa</option>
+                            <option value="quetzaltenango">Quetzaltenango</option>
+                            <option value="retalhuleu">Retalhuleu</option>
+                            <option value="sacatepequez">Sacatepéquez</option>
+                            <option value="san marcos">San Marcos</option>
+                            <option value="santa rosa">Santa Rosa</option>
+                            <option value="solola">Sololá</option>
+                            <option value="suchitepequez">Suchitepequez</option>
+                            <option value="totonicapan">Totonicapán</option>
+                            <option value="zacapa">Zacapa</option>
+                        </select>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="form_name">Municipalidad</label>
+                            <input id="form_name" type="text" name="municipality" class="form-control" placeholder="Municipio" required="required" data-error="El municipio es requerido">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_message">Síntomas</label>
+                        <textarea id="form_message" name="symptom" class="form-control" placeholder="Síntomas presentados por el paciente" rows="2" required="required"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_message">Descripción</label>
+                        <textarea id="form_message" name="description" class="form-control" placeholder="Descripción del contagio del paciente" rows="2" required="required"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-warning btn-send" style="margin: 10px" value="Crear pacientes">
+                        </div>
+                            <button type="button" onclick="location.href='@Url.Action("Panel", "Home")'" class="btn btn-light">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+ }

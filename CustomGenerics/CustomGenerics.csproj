@@ -44,7 +44,9 @@
     <Compile Include="Interfaces\IStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\AVLStructure.cs" />
+    <Compile Include="Structures\HashTable.cs" />
     <Compile Include="Structures\Node.cs" />
+    <Compile Include="Structures\PriorityQueue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

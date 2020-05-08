@@ -1,0 +1,56 @@
+﻿@model CovidAnalyzer.Models.Hospital
+
+@{
+    ViewBag.Title = "Información";
+}
+<br />
+<h2>Hospitales</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        
+        <div class="controls">
+            <table class="table table-sm" style="position: relative; top: 30px; left:0px">
+                <thead>
+                    <tr class="bg-warning">
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Region</th>
+                        <th scope="col" class="text-center">Dirección</th>
+                        <th scope="col" class="text-center">Infectados</th>
+                        <th scope="col" class="text-center">Recuperados</th>
+                        <th scope="col" class="text-center">Por atender</th>
+                        <th scope="col" class="text-center">Acción</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in CovidAnalyzer.Services.Storage.Instance.hospitalsActives) {
+                        <tr>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.nameHostpial)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.regionHospital)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.address)</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.CantInfected(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.CantRecovered(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.CantAttended(item.regionHospital))</td>
+                            <td class="text-center">@Html.ActionLink("Ver hospital", "HospitalList", new { idHospital = item.nameHostpial })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<br />
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-inline">
+            <button type="button" onclick="location.href='@Url.Action("Panel", "Home")'" class="btn btn-light">Regresar</button>
+        </div>
+    </div>
+</div>
