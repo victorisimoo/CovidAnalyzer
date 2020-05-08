@@ -7,8 +7,8 @@ namespace CustomGenerics.Structures {
         private int height, bf;
         private T valueNode;
 
-        public Node<T> addNodeElement(Node<T> root, Node<T> newNode, Comparison<T> comparison)
-        {
+        //Add node method
+        public Node<T> addNodeElement(Node<T> root, Node<T> newNode, Comparison<T> comparison) {
             if (root == null) {
                 newNode.bf = 0;
                 newNode.height = 0;
@@ -16,45 +16,34 @@ namespace CustomGenerics.Structures {
             }
             if (comparison.Invoke(newNode.getValue(), root.getValue()) > 0) {
                 root.rightNode = rotate(addNodeElement(root.rightNode, newNode, comparison));
-            }
-            else {
+            } else {
                 root.leftNode = rotate(addNodeElement(root.leftNode, newNode, comparison));
             }
             root = rotate(root);
             return root;
         }
-
+        //Rotations 
         public Node<T> rotate(Node<T> nodeRotate)
         {
             if (nodeRotate == null) return nodeRotate;
             nodeRotate = updateHeight(nodeRotate);
-            if (nodeRotate.bf < -1)
-            {
-                if (nodeRotate.rightNode.bf > 0)
-                {
+            if (nodeRotate.bf < -1) {
+                if (nodeRotate.rightNode.bf > 0) {
                     nodeRotate = rightLeft(nodeRotate);
-                }
-                else
-                {
+                } else {
                     nodeRotate = left(nodeRotate);
                 }
-            }
-            else if (nodeRotate.bf > 1)
-            {
-                if (nodeRotate.leftNode.bf < 0)
-                {
+            } else if (nodeRotate.bf > 1) {
+                if (nodeRotate.leftNode.bf < 0) {
                     nodeRotate = leftRight(nodeRotate);
-                }
-                else
-                {
+                } else {
                     nodeRotate = right(nodeRotate);
                 }
             }
             return nodeRotate;
         }
-
-        private Node<T> left(Node<T> nodeRotate)
-        {
+        //Left's rotations
+        private Node<T> left(Node<T> nodeRotate) {
             Node<T> newRoot = nodeRotate.rightNode;
             Node<T> temp = nodeRotate.rightNode.leftNode;
             nodeRotate.rightNode.leftNode = nodeRotate;
@@ -62,9 +51,8 @@ namespace CustomGenerics.Structures {
             nodeRotate = updateHeight(nodeRotate);
             return newRoot;
         }
-
-        private Node<T> right(Node<T> nodeRotate)
-        {
+        //Right's rotations
+        private Node<T> right(Node<T> nodeRotate) {
             Node<T> newRoot = nodeRotate.leftNode;
             Node<T> temp = nodeRotate.leftNode.rightNode;
             nodeRotate.leftNode.rightNode = nodeRotate;
@@ -72,23 +60,20 @@ namespace CustomGenerics.Structures {
             nodeRotate = updateHeight(nodeRotate);
             return newRoot;
         }
-
-        private Node<T> leftRight(Node<T> nodeRotate)
-        {
+        //Left right rotation
+        private Node<T> leftRight(Node<T> nodeRotate) {
             nodeRotate.leftNode = left(nodeRotate.leftNode);
             nodeRotate = right(nodeRotate);
             return nodeRotate;
         }
-
-        private Node<T> rightLeft(Node<T> nodeRotate)
-        {
+        //Right left rotation
+        private Node<T> rightLeft(Node<T> nodeRotate) {
             nodeRotate.rightNode = right(nodeRotate.rightNode);
             nodeRotate = left(nodeRotate);
             return nodeRotate;
         }
-
-        private Node<T> updateHeight(Node<T> nodeRotate)
-        {
+        //Update the AVL height
+        private Node<T> updateHeight(Node<T> nodeRotate) {
             int left, right;
             left = nodeRotate.leftNode != null ? nodeRotate.leftNode.height : -1;
             right = nodeRotate.rightNode != null ? nodeRotate.rightNode.height : -1;
@@ -97,35 +82,23 @@ namespace CustomGenerics.Structures {
             return nodeRotate;
         }
 
-        public Node<T> removeElement(Node<T> root, T value, Comparison<T> comparison)
-        {
-            if (comparison.Invoke(root.getValue(), value) == 0)
-            {
-                if (root.rightNode == null && root.leftNode == null)
-                {
+        //Remove element in the AVL
+        public Node<T> removeElement(Node<T> root, T value, Comparison<T> comparison) {
+            if (comparison.Invoke(root.getValue(), value) == 0) {
+                if (root.rightNode == null && root.leftNode == null) {
                     return null;
-                }
-                else if (root.rightNode == null)
-                {
+                } else if (root.rightNode == null) {
                     return rotate(root.leftNode);
-                }
-                else if (root.leftNode == null)
-                {
+                } else if (root.leftNode == null) {
                     return rotate(root.rightNode);
-                }
-                else
-                {
+                } else {
                     Node<T> preNode = root.leftNode;
                     Node<T> predecessorNode;
-                    if (preNode.rightNode == null)
-                    {
+                    if (preNode.rightNode == null) {
                         predecessorNode = preNode;
                         predecessorNode.rightNode = root.rightNode;
-                    }
-                    else
-                    {
-                        while (preNode.rightNode.rightNode != null)
-                        {
+                    } else {
+                        while (preNode.rightNode.rightNode != null) {
                             preNode = preNode.rightNode;
                         }
                         predecessorNode = preNode.rightNode;
@@ -135,75 +108,57 @@ namespace CustomGenerics.Structures {
                     }
                     return predecessorNode;
                 }
-            }
-            else
-            {
-                if (comparison.Invoke(value, root.getValue()) > 0)
-                {
+            } else {
+                if (comparison.Invoke(value, root.getValue()) > 0) {
                     root.rightNode = rotate(removeElement(root.rightNode, value, comparison));
-                }
-                else
-                {
+                } else {
                     root.leftNode = rotate(removeElement(root.leftNode, value, comparison));
                 }
                 return rotate(root);
             }
         }
-
-        public Node(T value)
-        {
+        //Value assignment
+        public Node(T value) {
             setValue(value);
         }
 
         public Node() { }
-
-        public void setValue(T value)
-        {
+        //Get and set the node's value
+        public void setValue(T value) {
             this.valueNode = value;
         }
-
-        public T getValue()
-        {
+        public T getValue() {
             return this.valueNode;
         }
-
-        public Node<T> getLeftNode()
-        {
+        //Get and set the left nodes's value
+        public Node<T> getLeftNode() {
             return leftNode;
         }
 
-        public void setLeftNode(Node<T> leftNode)
-        {
+        public void setLeftNode(Node<T> leftNode) {
             this.leftNode = leftNode;
         }
-
-        public Node<T> getRigthNode()
-        {
+        //Get and set the right nodes's value
+        public Node<T> getRigthNode() {
             return rightNode;
         }
 
-        public void setRightNode(Node<T> rightNode)
-        {
+        public void setRightNode(Node<T> rightNode) {
             this.rightNode = rightNode;
         }
-
-        public int getHeight()
-        {
+        //Get and set the height value
+        public int getHeight() {
             return height;
         }
-
-        public void setHeight(int height)
-        {
+        public void setHeight(int height) {
             this.height = height;
         }
 
-        public int getBf()
-        {
+        public int getBf() {
             return bf;
         }
 
-        public void setBf(int bf)
-        {
+        public void setBf(int bf) {
             this.bf = bf;
         }
 

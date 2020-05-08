@@ -8,15 +8,19 @@ namespace CustomGenerics.Structures
     public class PriorityQueue<T> : IPriorityQueue<T>, IEnumerable<T> {
 
         //Priority Queue's methods
+        //Enqueue patient in the queue
         public void EnqueuePatient(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             Enqueue(value, comparison, comparisonHour);
         }
+        //Dequeue patient in the queue
         public T DequeuePatient(Comparison<T> comparison, Comparison<T> comparisonHour) {
             return Dequeue(comparison, comparisonHour);
         }
+        //Peek the first patient in the queue
         public T PeekPatient() {
             return peek();
         }
+        //Dequeue with the delete method
         protected override T Dequeue(Comparison<T> comparison, Comparison<T> comparisonHour) {
             if (root.valueNode != null) {
                 T dequeueNode = root.valueNode;
@@ -25,8 +29,8 @@ namespace CustomGenerics.Structures
                 return dequeueNode;
             }
             return default;
-
         }
+        //Enqueue method
         protected override void Enqueue(T value, Comparison<T> comparison, Comparison<T> comparisonHour) {
             AddNode(root, value, comparison, comparisonHour, level());
             levelCompleted = 0;
@@ -221,12 +225,10 @@ namespace CustomGenerics.Structures
                 }
             }
         }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             throw new NotImplementedException();
         }
-        public IEnumerator<T> GetEnumerator()
-        {
+        public IEnumerator<T> GetEnumerator() {
             throw new NotImplementedException();
         }
     }
