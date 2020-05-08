@@ -13,12 +13,14 @@ namespace CovidAnalyzer.Models {
         public AVLStructure<Patient> waitingPatients;
         public PriorityQueue<Patient> attendedPatients;
 
+        //Class constructor
         public Hospital(){
             waitingPatients = new AVLStructure<Patient>();
             attendedPatients = new PriorityQueue<Patient>();
         }
 
-        public bool saveHospital() {
+        //Method for save hospital
+        public bool SaveHospital() {
             try {
                 Storage.Instance.hospitalsActives.Add(this);
                 return true;
@@ -27,12 +29,8 @@ namespace CovidAnalyzer.Models {
             }
         }
 
-        public int getCantAttendend(){
-            return attendedPatients.numberNodes;
-        }
-
         //Method for add patient in hospital
-        public bool addPatient(Patient patientAdd) {
+        public bool AddPatient(Patient patientAdd) {
             try { 
                 //Validation for elected internal structur 
                 if (patientAdd.infected) {
@@ -57,10 +55,10 @@ namespace CovidAnalyzer.Models {
         }
 
         //Method for change patient status
-        public bool changeStatus(Patient patientChange) {
+        public bool ChangeStatus(Patient patientChange) {
             if (patientChange.infected) {
                 waitingPatients.deleteElement(patientChange, Patient.compareByDPI);
-                addPatient(patientChange);
+                AddPatient(patientChange);
                 return true;
             }else {
                 waitingPatients.deleteElement(patientChange, Patient.compareByDPI);
@@ -69,7 +67,7 @@ namespace CovidAnalyzer.Models {
         }
 
         //Method to change hospital beds
-        public bool healPatient(Patient patient) {
+        public bool HealPatient(Patient patient) {
             try {
                 Storage.Instance.bedsTable.delete(patient.DPI);
                 Patient newPatient = attendedPatients.DequeuePatient(Patient.compareByName, Patient.compareByHour);

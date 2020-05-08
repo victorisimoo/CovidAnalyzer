@@ -1,17 +1,14 @@
 ﻿using CovidAnalyzer.Models;
 using CovidAnalyzer.Services;
-using Newtonsoft.Json;
 using System;
-using System.Data;
 using System.IO;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace CovidAnalyzer.Controllers {
     public class HomeController : Controller {
 
         public ActionResult InitialPage() {
-            createHostpitals();
+            CreateHostpitals();
             return View();
         }
 
@@ -31,11 +28,11 @@ namespace CovidAnalyzer.Controllers {
             return View();
         }
 
-        public ActionResult getData() {
+        public ActionResult GetData() {
             Ratio obj = new Ratio();
-            obj.infecteds = Storage.Instance.cantInfected();
-            obj.sospech = Storage.Instance.cantSuspect();
-            obj.supered = Storage.Instance.cantRecovered();
+            obj.infecteds = Storage.Instance.CantInfected();
+            obj.sospech = Storage.Instance.CantSuspect();
+            obj.supered = Storage.Instance.CantRecovered();
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
@@ -46,7 +43,7 @@ namespace CovidAnalyzer.Controllers {
 
         }
 
-        public void createHostpitals() {
+        public void CreateHostpitals() {
             if (Storage.Instance.hospitalsActives.Count == 0) {
                 var ubication = Server.MapPath($"~/info/hospitals.csv");
                 using (var fileStream = new FileStream(ubication, FileMode.Open)) {
@@ -60,7 +57,7 @@ namespace CovidAnalyzer.Controllers {
                             newHospital.regionHospital = Convert.ToInt32(parts[1]);
                             newHospital.beadsAvailable = Convert.ToInt32(parts[2]);
                             newHospital.address = parts[3];
-                            newHospital.saveHospital();
+                            newHospital.SaveHospital();
                         }
                     }
                 }

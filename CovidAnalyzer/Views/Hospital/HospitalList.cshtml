@@ -1,7 +1,7 @@
 ﻿@model CovidAnalyzer.Models.Hospital
 
 @{
-    ViewBag.Title = "HospitalList";
+    ViewBag.Title = "Información";
 }
 <br />
 <h2>Hospitales</h2>
@@ -33,9 +33,9 @@
                             <td class="text-center">@Html.DisplayFor(modelItem => item.nameHostpial)</td>
                             <td class="text-center">@Html.DisplayFor(modelItem => item.regionHospital)</td>
                             <td class="text-center">@Html.DisplayFor(modelItem => item.address)</td>
-                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.cantInfected(item.regionHospital))</td>
-                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.cantRecovered(item.regionHospital))</td>
-                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.cantAttended(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.CantInfected(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.CantRecovered(item.regionHospital))</td>
+                            <td class="text-center">@(CovidAnalyzer.Services.Storage.Instance.CantAttended(item.regionHospital))</td>
                             <td class="text-center">@Html.ActionLink("Ver hospital", "HospitalList", new { idHospital = item.nameHostpial })</td>
                         </tr>
                     }

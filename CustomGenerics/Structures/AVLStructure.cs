@@ -4,20 +4,24 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace CustomGenerics.Structures {
-    public class AVLStructure<T> : IAVLStructure<T>, IEnumerable<T> {
+    public class AVLStructure<T> : IAVLStructure<T> {
 
+        //Class parameters
         private Node<T> root = new Node<T>();
         List<T> findNode = new List<T>();
         private int size;
 
+        //Add element
         public void addElement(T newElement, Comparison<T> comparison) {
             InsertValue(newElement, comparison);
         }
 
+        //Delete element
         public void deleteElement(T deleteElement, Comparison<T> comparison){
             DeleteValue(deleteElement, comparison);
         }
 
+        //Search value
         public List<T> searchValue(T searchElement, Comparison<T> comparisonName) {
             findNode.Clear();
             var found = search(root, searchElement, comparisonName);
@@ -25,9 +29,6 @@ namespace CustomGenerics.Structures {
             
         }
 
-        public IEnumerator<T> GetEnumerator() {
-            throw new NotImplementedException();
-        }
 
         protected override T DeleteValue(T value, Comparison<T> comparison) {
             if (!contains(root, value, comparison)) {
@@ -69,18 +70,16 @@ namespace CustomGenerics.Structures {
             size++;
         }
 
+        //Is Empty
         public bool isEmpty() {
             if (size == 0) return true;
             return false;
         }
 
+        //Clear tree
         public void clearTree() {
             size = 0;
             root = null;
-        }
-        
-        IEnumerator IEnumerable.GetEnumerator() {
-            throw new NotImplementedException();
         }
     }
 }

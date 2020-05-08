@@ -16,7 +16,6 @@ namespace CovidAnalyzer.Models {
         public string Municipality { get; set; }
         public string Symptom { get; set; }
         public string Description { get; set; }
-        public DateTime dateHourIngress { get; set; }
 
         //Parameters for defined patient status.
         public bool infected { get; set; }
@@ -24,7 +23,13 @@ namespace CovidAnalyzer.Models {
         public bool recovered { get; set; }
         public int typePatient { get; set; }
         public int region { get; set; }
+        public DateTime dateHourIngress { get; set; }
 
+
+        //Constructor class
+        public Patient() { }
+
+        //Constructor class
         public Patient(int id, string name, string lastname, string dpi, int region) {
             this.IdPatient = id;
             this.Name = name;
@@ -36,14 +41,14 @@ namespace CovidAnalyzer.Models {
         }
 
         //Method for return infected probability.
-        public bool getProbability(string description) {
+        public bool GetProbability(string description) {
             int probability = 5;
             description = description.ToLower();
             string[] descriptionAnalicer = description.Split(' ');
-            string[] travel = { "europa", "viaje", "china", "italia", "avión" };
-            string[] relatives = { "familiar", "conocido", "vecino", "amigo", "compañero" };
-            string[] family = { "hermana", "papá", "mamá", "novia", "novio", "esposa", "hermano", "esposo" };
-            string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "estornudo","tos" , "abrazo" };
+            string[] travel = { "europa", "viaje", "excursión", "migrante", "china", "italia", "avión", "estados unidos", "nueva york", "new york", "wuhan", "ecuador" };
+            string[] relatives = { "familiar", "conocido", "vecino", "amigo", "compañero" , "compañera", "amiga", "conocida"};
+            string[] family = { "hermana", "papá", "mamá", "novia", "novio", "esposa", "hermano", "esposo", "amante", "tia", "tio", "primo", "prima" };
+            string[] reunions = { "reunió", "juntó", "vió", "saludó", "mano", "estornudo" ,"contagiado" ,"contagio" ,"tos" , "abrazo", "beso", "besar", "tomar", "fiesta" };
 
             foreach (var words in descriptionAnalicer) {
                 foreach (var item in travel) {
@@ -75,7 +80,7 @@ namespace CovidAnalyzer.Models {
         }
 
         //Method for defined patient type.
-        public int getTypePatient() {
+        public int GetTypePatient() {
             if ((this.Years >= 60 && this.Years > 0)) {
                 if (this.infected) {
                     return 1;
@@ -105,15 +110,15 @@ namespace CovidAnalyzer.Models {
         }
 
         //Method for save patient
-        public bool savePatient() {
+        public bool SavePatient() {
             CodeUser++;
             this.IdPatient = CodeUser;
             try {
                 this.dateHourIngress = DateTime.Now;
-                this.infected = getProbability(this.Description);
-                this.typePatient = getTypePatient();
-                this.region = getRegion(this.Departament);
-                if (Storage.Instance.hospitalsActives[(this.region - 1)].addPatient(this)) {
+                this.infected = GetProbability(this.Description);
+                this.typePatient = GetTypePatient();
+                this.region = GetRegion(this.Departament);
+                if (Storage.Instance.hospitalsActives[(this.region - 1)].AddPatient(this)) {
                     Storage.Instance.patientTree.addElement(new Patient(this.IdPatient, this.Name, this.Lastname, this.DPI, this.region), Patient.compareByDPI);
                     Storage.Instance.patientList.Add(this);
                 }
@@ -123,7 +128,8 @@ namespace CovidAnalyzer.Models {
             }
         }
 
-        public int getRegion(string userDep) {
+        //Method for get region
+        public int GetRegion(string userDep) {
             string[] region_1 = { "guatemala", "chimaltenango", "sacatepequez" };
             string[] region_2 = { "quetzaltenango", "totonicapan", "huehuetenango", "san marcos" };
             string[] region_3 = { "izabal", "zacapa", "chiquimula", "jalapa", "el progreso" };
@@ -161,8 +167,6 @@ namespace CovidAnalyzer.Models {
             }
             return 0;
         }
-
-        public Patient() { }
 
         //Method for compare elements
         public static Comparison<Patient> compareByDPI = delegate (Patient patient_one, Patient patient_two) {

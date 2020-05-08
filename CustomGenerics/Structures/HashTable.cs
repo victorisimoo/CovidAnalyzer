@@ -15,10 +15,12 @@ namespace CustomGenerics.Structures {
                 value.Add(insertValue);
             }
 
+            //Deleted evaluation
             public bool IsDeleted() {
                 return isDeleted;
             }
 
+            //Return value for list
             public List<T> returnValue() {
                 return value;
             }

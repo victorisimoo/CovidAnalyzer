@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Stadistics";
+    ViewBag.Title = "Estadísticas";
 }
 
 <script src="~/Scripts/chart/exporting.js"></script>
@@ -34,7 +34,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $.getJSON("/Home/getData", function (data){
+        $.getJSON("/Home/GetData", function (data){
             Highcharts.chart('container', {
                 chart: {
                     plotBackgroundColor: null,

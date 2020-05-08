@@ -82,6 +82,10 @@ C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csproj.CopyComplete
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.dll
 C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.pdb
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
+C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CovidAnalyzer.dll.config
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CovidAnalyzer.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CovidAnalyzer.pdb
@@ -136,6 +140,8 @@ C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\Newtonsoft.Json.dll
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Helpers.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Mvc.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Optimization.dll
@@ -145,6 +151,8 @@ C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.WebPages.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.WebPages.Razor.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\WebGrease.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\CustomGenerics.pdb
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
+C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Helpers.xml
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Mvc.xml
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\System.Web.Optimization.xml
@@ -166,11 +174,3 @@ C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csp
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.csproj.CopyComplete
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.dll
 C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\obj\Debug\CovidAnalyzer.pdb
-C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
-C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
-C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
-C:\Users\ayalr\Documents\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.dll
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.dll
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.xml
-C:\Users\vict_\source\repos\CovidAnalyzer\CovidAnalyzer\bin\PagedList.Mvc.xml
